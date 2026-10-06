@@ -13,7 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminMarchesBonsDeCommandeRouteImport } from './routes/admin.marches.bons-de-commande'
+import { Route as AdminMarchesCautionsRouteImport } from './routes/admin.marches.cautions'
+import { Route as AdminMarchesDocumentsRouteImport } from './routes/admin.marches.documents'
 import { Route as AdminMarchesOpportunitesRouteImport } from './routes/admin.marches.opportunites'
+import { Route as AdminMarchesPrixRouteImport } from './routes/admin.marches.prix'
+import { Route as AdminMarchesReferencesRouteImport } from './routes/admin.marches.references'
+import { Route as AdminMarchesReglementationRouteImport } from './routes/admin.marches.reglementation'
+import { Route as AdminMarchesResultatsRouteImport } from './routes/admin.marches.resultats'
 import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
 import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
 import { Route as AdminMarchesDossiersIdRouteImport } from './routes/admin.marches.dossiers.$id'
@@ -38,12 +45,49 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMarchesBonsDeCommandeRoute =
+  AdminMarchesBonsDeCommandeRouteImport.update({
+    id: '/marches/bons-de-commande',
+    path: '/marches/bons-de-commande',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesCautionsRoute = AdminMarchesCautionsRouteImport.update({
+  id: '/marches/cautions',
+  path: '/marches/cautions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesDocumentsRoute = AdminMarchesDocumentsRouteImport.update({
+  id: '/marches/documents',
+  path: '/marches/documents',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMarchesOpportunitesRoute =
   AdminMarchesOpportunitesRouteImport.update({
     id: '/marches/opportunites',
     path: '/marches/opportunites',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminMarchesPrixRoute = AdminMarchesPrixRouteImport.update({
+  id: '/marches/prix',
+  path: '/marches/prix',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesReferencesRoute = AdminMarchesReferencesRouteImport.update({
+  id: '/marches/references',
+  path: '/marches/references',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesReglementationRoute =
+  AdminMarchesReglementationRouteImport.update({
+    id: '/marches/reglementation',
+    path: '/marches/reglementation',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesResultatsRoute = AdminMarchesResultatsRouteImport.update({
+  id: '/marches/resultats',
+  path: '/marches/resultats',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMarchesVeilleRoute = AdminMarchesVeilleRouteImport.update({
   id: '/marches/veille',
   path: '/marches/veille',
@@ -66,7 +110,14 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
@@ -75,7 +126,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
@@ -86,7 +144,14 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/admin_/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
@@ -98,7 +163,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
     | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
     | '/admin/marches/veille'
     | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers/'
@@ -107,7 +179,14 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/login'
     | '/admin'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
     | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
     | '/admin/marches/veille'
     | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers'
@@ -117,7 +196,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin_/login'
     | '/admin/'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
     | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
     | '/admin/marches/veille'
     | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers/'
@@ -159,11 +245,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/marches/bons-de-commande': {
+      id: '/admin/marches/bons-de-commande'
+      path: '/marches/bons-de-commande'
+      fullPath: '/admin/marches/bons-de-commande'
+      preLoaderRoute: typeof AdminMarchesBonsDeCommandeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/cautions': {
+      id: '/admin/marches/cautions'
+      path: '/marches/cautions'
+      fullPath: '/admin/marches/cautions'
+      preLoaderRoute: typeof AdminMarchesCautionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/documents': {
+      id: '/admin/marches/documents'
+      path: '/marches/documents'
+      fullPath: '/admin/marches/documents'
+      preLoaderRoute: typeof AdminMarchesDocumentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/marches/opportunites': {
       id: '/admin/marches/opportunites'
       path: '/marches/opportunites'
       fullPath: '/admin/marches/opportunites'
       preLoaderRoute: typeof AdminMarchesOpportunitesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/prix': {
+      id: '/admin/marches/prix'
+      path: '/marches/prix'
+      fullPath: '/admin/marches/prix'
+      preLoaderRoute: typeof AdminMarchesPrixRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/references': {
+      id: '/admin/marches/references'
+      path: '/marches/references'
+      fullPath: '/admin/marches/references'
+      preLoaderRoute: typeof AdminMarchesReferencesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/reglementation': {
+      id: '/admin/marches/reglementation'
+      path: '/marches/reglementation'
+      fullPath: '/admin/marches/reglementation'
+      preLoaderRoute: typeof AdminMarchesReglementationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/resultats': {
+      id: '/admin/marches/resultats'
+      path: '/marches/resultats'
+      fullPath: '/admin/marches/resultats'
+      preLoaderRoute: typeof AdminMarchesResultatsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/marches/veille': {
@@ -192,7 +327,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminMarchesBonsDeCommandeRoute: typeof AdminMarchesBonsDeCommandeRoute
+  AdminMarchesCautionsRoute: typeof AdminMarchesCautionsRoute
+  AdminMarchesDocumentsRoute: typeof AdminMarchesDocumentsRoute
   AdminMarchesOpportunitesRoute: typeof AdminMarchesOpportunitesRoute
+  AdminMarchesPrixRoute: typeof AdminMarchesPrixRoute
+  AdminMarchesReferencesRoute: typeof AdminMarchesReferencesRoute
+  AdminMarchesReglementationRoute: typeof AdminMarchesReglementationRoute
+  AdminMarchesResultatsRoute: typeof AdminMarchesResultatsRoute
   AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
   AdminMarchesDossiersIdRoute: typeof AdminMarchesDossiersIdRoute
   AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
@@ -200,7 +342,14 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminMarchesBonsDeCommandeRoute: AdminMarchesBonsDeCommandeRoute,
+  AdminMarchesCautionsRoute: AdminMarchesCautionsRoute,
+  AdminMarchesDocumentsRoute: AdminMarchesDocumentsRoute,
   AdminMarchesOpportunitesRoute: AdminMarchesOpportunitesRoute,
+  AdminMarchesPrixRoute: AdminMarchesPrixRoute,
+  AdminMarchesReferencesRoute: AdminMarchesReferencesRoute,
+  AdminMarchesReglementationRoute: AdminMarchesReglementationRoute,
+  AdminMarchesResultatsRoute: AdminMarchesResultatsRoute,
   AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
   AdminMarchesDossiersIdRoute: AdminMarchesDossiersIdRoute,
   AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
