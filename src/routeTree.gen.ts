@@ -12,8 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminRapportsRouteImport } from './routes/admin.rapports'
+import { Route as AdminServiceClientRouteImport } from './routes/admin.service-client'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
+import { Route as AdminClientsDevisRouteImport } from './routes/admin.clients.devis'
+import { Route as AdminClientsLeadsRouteImport } from './routes/admin.clients.leads'
 import { Route as AdminComptaIndexRouteImport } from './routes/admin.compta.index'
+import { Route as AdminComptaAgentRouteImport } from './routes/admin.compta.agent'
 import { Route as AdminComptaBudgetRouteImport } from './routes/admin.compta.budget'
 import { Route as AdminComptaClotureRouteImport } from './routes/admin.compta.cloture'
 import { Route as AdminComptaCreancesRouteImport } from './routes/admin.compta.creances'
@@ -57,14 +63,44 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminRapportsRoute = AdminRapportsRouteImport.update({
+  id: '/rapports',
+  path: '/rapports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServiceClientRoute = AdminServiceClientRouteImport.update({
+  id: '/service-client',
+  path: '/service-client',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
+  id: '/clients/',
+  path: '/clients/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsDevisRoute = AdminClientsDevisRouteImport.update({
+  id: '/clients/devis',
+  path: '/clients/devis',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsLeadsRoute = AdminClientsLeadsRouteImport.update({
+  id: '/clients/leads',
+  path: '/clients/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminComptaIndexRoute = AdminComptaIndexRouteImport.update({
   id: '/compta/',
   path: '/compta/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaAgentRoute = AdminComptaAgentRouteImport.update({
+  id: '/compta/agent',
+  path: '/compta/agent',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminComptaBudgetRoute = AdminComptaBudgetRouteImport.update({
@@ -215,8 +251,13 @@ const AdminComptaFacturationFacturesIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin/rapports': typeof AdminRapportsRoute
+  '/admin/service-client': typeof AdminServiceClientRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/clients/devis': typeof AdminClientsDevisRoute
+  '/admin/clients/leads': typeof AdminClientsLeadsRoute
+  '/admin/compta/agent': typeof AdminComptaAgentRoute
   '/admin/compta/budget': typeof AdminComptaBudgetRoute
   '/admin/compta/cloture': typeof AdminComptaClotureRoute
   '/admin/compta/creances': typeof AdminComptaCreancesRoute
@@ -236,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/compta/': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
@@ -248,8 +290,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/rapports': typeof AdminRapportsRoute
+  '/admin/service-client': typeof AdminServiceClientRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/clients/devis': typeof AdminClientsDevisRoute
+  '/admin/clients/leads': typeof AdminClientsLeadsRoute
+  '/admin/compta/agent': typeof AdminComptaAgentRoute
   '/admin/compta/budget': typeof AdminComptaBudgetRoute
   '/admin/compta/cloture': typeof AdminComptaClotureRoute
   '/admin/compta/creances': typeof AdminComptaCreancesRoute
@@ -269,6 +316,7 @@ export interface FileRoutesByTo {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/clients': typeof AdminClientsIndexRoute
   '/admin/compta': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
@@ -283,8 +331,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin/rapports': typeof AdminRapportsRoute
+  '/admin/service-client': typeof AdminServiceClientRoute
   '/admin_/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/clients/devis': typeof AdminClientsDevisRoute
+  '/admin/clients/leads': typeof AdminClientsLeadsRoute
+  '/admin/compta/agent': typeof AdminComptaAgentRoute
   '/admin/compta/budget': typeof AdminComptaBudgetRoute
   '/admin/compta/cloture': typeof AdminComptaClotureRoute
   '/admin/compta/creances': typeof AdminComptaCreancesRoute
@@ -304,6 +357,7 @@ export interface FileRoutesById {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
   '/admin/compta/': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
@@ -319,8 +373,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/admin/rapports'
+    | '/admin/service-client'
     | '/admin/login'
     | '/admin/'
+    | '/admin/clients/devis'
+    | '/admin/clients/leads'
+    | '/admin/compta/agent'
     | '/admin/compta/budget'
     | '/admin/compta/cloture'
     | '/admin/compta/creances'
@@ -340,6 +399,7 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/clients/'
     | '/admin/compta/'
     | '/admin/compta/agences/$id'
     | '/admin/compta/facturation/avoirs'
@@ -352,8 +412,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin/rapports'
+    | '/admin/service-client'
     | '/admin/login'
     | '/admin'
+    | '/admin/clients/devis'
+    | '/admin/clients/leads'
+    | '/admin/compta/agent'
     | '/admin/compta/budget'
     | '/admin/compta/cloture'
     | '/admin/compta/creances'
@@ -373,6 +438,7 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/clients'
     | '/admin/compta'
     | '/admin/compta/agences/$id'
     | '/admin/compta/facturation/avoirs'
@@ -386,8 +452,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/admin/rapports'
+    | '/admin/service-client'
     | '/admin_/login'
     | '/admin/'
+    | '/admin/clients/devis'
+    | '/admin/clients/leads'
+    | '/admin/compta/agent'
     | '/admin/compta/budget'
     | '/admin/compta/cloture'
     | '/admin/compta/creances'
@@ -407,6 +478,7 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/clients/'
     | '/admin/compta/'
     | '/admin/compta/agences/$id'
     | '/admin/compta/facturation/avoirs'
@@ -447,6 +519,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/rapports': {
+      id: '/admin/rapports'
+      path: '/rapports'
+      fullPath: '/admin/rapports'
+      preLoaderRoute: typeof AdminRapportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/service-client': {
+      id: '/admin/service-client'
+      path: '/service-client'
+      fullPath: '/admin/service-client'
+      preLoaderRoute: typeof AdminServiceClientRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin_/login': {
       id: '/admin_/login'
       path: '/admin/login'
@@ -454,11 +540,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/clients/': {
+      id: '/admin/clients/'
+      path: '/clients'
+      fullPath: '/admin/clients/'
+      preLoaderRoute: typeof AdminClientsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients/devis': {
+      id: '/admin/clients/devis'
+      path: '/clients/devis'
+      fullPath: '/admin/clients/devis'
+      preLoaderRoute: typeof AdminClientsDevisRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients/leads': {
+      id: '/admin/clients/leads'
+      path: '/clients/leads'
+      fullPath: '/admin/clients/leads'
+      preLoaderRoute: typeof AdminClientsLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/compta/': {
       id: '/admin/compta/'
       path: '/compta'
       fullPath: '/admin/compta/'
       preLoaderRoute: typeof AdminComptaIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/agent': {
+      id: '/admin/compta/agent'
+      path: '/compta/agent'
+      fullPath: '/admin/compta/agent'
+      preLoaderRoute: typeof AdminComptaAgentRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/compta/budget': {
@@ -654,7 +768,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminRapportsRoute: typeof AdminRapportsRoute
+  AdminServiceClientRoute: typeof AdminServiceClientRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminClientsDevisRoute: typeof AdminClientsDevisRoute
+  AdminClientsLeadsRoute: typeof AdminClientsLeadsRoute
+  AdminComptaAgentRoute: typeof AdminComptaAgentRoute
   AdminComptaBudgetRoute: typeof AdminComptaBudgetRoute
   AdminComptaClotureRoute: typeof AdminComptaClotureRoute
   AdminComptaCreancesRoute: typeof AdminComptaCreancesRoute
@@ -674,6 +793,7 @@ interface AdminRouteChildren {
   AdminMarchesReglementationRoute: typeof AdminMarchesReglementationRoute
   AdminMarchesResultatsRoute: typeof AdminMarchesResultatsRoute
   AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
+  AdminClientsIndexRoute: typeof AdminClientsIndexRoute
   AdminComptaIndexRoute: typeof AdminComptaIndexRoute
   AdminComptaAgencesIdRoute: typeof AdminComptaAgencesIdRoute
   AdminComptaFacturationAvoirsRoute: typeof AdminComptaFacturationAvoirsRoute
@@ -686,7 +806,12 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminRapportsRoute: AdminRapportsRoute,
+  AdminServiceClientRoute: AdminServiceClientRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminClientsDevisRoute: AdminClientsDevisRoute,
+  AdminClientsLeadsRoute: AdminClientsLeadsRoute,
+  AdminComptaAgentRoute: AdminComptaAgentRoute,
   AdminComptaBudgetRoute: AdminComptaBudgetRoute,
   AdminComptaClotureRoute: AdminComptaClotureRoute,
   AdminComptaCreancesRoute: AdminComptaCreancesRoute,
@@ -706,6 +831,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminMarchesReglementationRoute: AdminMarchesReglementationRoute,
   AdminMarchesResultatsRoute: AdminMarchesResultatsRoute,
   AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
+  AdminClientsIndexRoute: AdminClientsIndexRoute,
   AdminComptaIndexRoute: AdminComptaIndexRoute,
   AdminComptaAgencesIdRoute: AdminComptaAgencesIdRoute,
   AdminComptaFacturationAvoirsRoute: AdminComptaFacturationAvoirsRoute,
