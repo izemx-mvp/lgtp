@@ -26,7 +26,7 @@ function layerBounds() {
 function Stratum({ i, top, bot, dark }: { i: number; top: number; bot: number; dark: boolean }) {
   const geo = useMemo(() => {
     const g = new THREE.BoxGeometry(W, 1, D, 40, 1, 16);
-    const p = g.attributes.position;
+    const p = g.getAttribute("position") as THREE.BufferAttribute;
     for (let v = 0; v < p.count; v++) {
       const x = p.getX(v), z = p.getZ(v), isTop = p.getY(v) > 0;
       const y = isTop ? top + (i === 0 ? wave(x, z, 0) * 0.4 : wave(x, z, i)) : bot + wave(x, z, i + 1);
