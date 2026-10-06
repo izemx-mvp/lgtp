@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminComptaIndexRouteImport } from './routes/admin.compta.index'
+import { Route as AdminComptaObjectifsRouteImport } from './routes/admin.compta.objectifs'
+import { Route as AdminComptaPrevisionsRouteImport } from './routes/admin.compta.previsions'
 import { Route as AdminMarchesBonsDeCommandeRouteImport } from './routes/admin.marches.bons-de-commande'
 import { Route as AdminMarchesCautionsRouteImport } from './routes/admin.marches.cautions'
 import { Route as AdminMarchesDocumentsRouteImport } from './routes/admin.marches.documents'
@@ -22,6 +25,8 @@ import { Route as AdminMarchesReferencesRouteImport } from './routes/admin.march
 import { Route as AdminMarchesReglementationRouteImport } from './routes/admin.marches.reglementation'
 import { Route as AdminMarchesResultatsRouteImport } from './routes/admin.marches.resultats'
 import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
+import { Route as AdminComptaAgencesIndexRouteImport } from './routes/admin.compta.agences.index'
+import { Route as AdminComptaAgencesIdRouteImport } from './routes/admin.compta.agences.$id'
 import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
 import { Route as AdminMarchesDossiersIdRouteImport } from './routes/admin.marches.dossiers.$id'
 
@@ -44,6 +49,21 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminComptaIndexRoute = AdminComptaIndexRouteImport.update({
+  id: '/compta/',
+  path: '/compta/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaObjectifsRoute = AdminComptaObjectifsRouteImport.update({
+  id: '/compta/objectifs',
+  path: '/compta/objectifs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaPrevisionsRoute = AdminComptaPrevisionsRouteImport.update({
+  id: '/compta/previsions',
+  path: '/compta/previsions',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminMarchesBonsDeCommandeRoute =
   AdminMarchesBonsDeCommandeRouteImport.update({
@@ -93,6 +113,16 @@ const AdminMarchesVeilleRoute = AdminMarchesVeilleRouteImport.update({
   path: '/marches/veille',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminComptaAgencesIndexRoute = AdminComptaAgencesIndexRouteImport.update({
+  id: '/compta/agences/',
+  path: '/compta/agences/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaAgencesIdRoute = AdminComptaAgencesIdRouteImport.update({
+  id: '/compta/agences/$id',
+  path: '/compta/agences/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMarchesDossiersIndexRoute =
   AdminMarchesDossiersIndexRouteImport.update({
     id: '/marches/dossiers/',
@@ -110,6 +140,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -119,13 +151,18 @@ export interface FileRoutesByFullPath {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta/': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -135,7 +172,10 @@ export interface FileRoutesByTo {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences': typeof AdminComptaAgencesIndexRoute
   '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesById {
@@ -144,6 +184,8 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/admin_/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -153,7 +195,10 @@ export interface FileRoutesById {
   '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
   '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta/': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRouteTypes {
@@ -163,6 +208,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/previsions'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -172,13 +219,18 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/compta/'
+    | '/admin/compta/agences/$id'
     | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences/'
     | '/admin/marches/dossiers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin/login'
     | '/admin'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/previsions'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -188,7 +240,10 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/compta'
+    | '/admin/compta/agences/$id'
     | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences'
     | '/admin/marches/dossiers'
   id:
     | '__root__'
@@ -196,6 +251,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin_/login'
     | '/admin/'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/previsions'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -205,7 +262,10 @@ export interface FileRouteTypes {
     | '/admin/marches/reglementation'
     | '/admin/marches/resultats'
     | '/admin/marches/veille'
+    | '/admin/compta/'
+    | '/admin/compta/agences/$id'
     | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences/'
     | '/admin/marches/dossiers/'
   fileRoutesById: FileRoutesById
 }
@@ -244,6 +304,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/compta/': {
+      id: '/admin/compta/'
+      path: '/compta'
+      fullPath: '/admin/compta/'
+      preLoaderRoute: typeof AdminComptaIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/objectifs': {
+      id: '/admin/compta/objectifs'
+      path: '/compta/objectifs'
+      fullPath: '/admin/compta/objectifs'
+      preLoaderRoute: typeof AdminComptaObjectifsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/previsions': {
+      id: '/admin/compta/previsions'
+      path: '/compta/previsions'
+      fullPath: '/admin/compta/previsions'
+      preLoaderRoute: typeof AdminComptaPrevisionsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/marches/bons-de-commande': {
       id: '/admin/marches/bons-de-commande'
@@ -308,6 +389,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMarchesVeilleRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/compta/agences/': {
+      id: '/admin/compta/agences/'
+      path: '/compta/agences'
+      fullPath: '/admin/compta/agences/'
+      preLoaderRoute: typeof AdminComptaAgencesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/agences/$id': {
+      id: '/admin/compta/agences/$id'
+      path: '/compta/agences/$id'
+      fullPath: '/admin/compta/agences/$id'
+      preLoaderRoute: typeof AdminComptaAgencesIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/marches/dossiers/': {
       id: '/admin/marches/dossiers/'
       path: '/marches/dossiers'
@@ -327,6 +422,8 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminComptaObjectifsRoute: typeof AdminComptaObjectifsRoute
+  AdminComptaPrevisionsRoute: typeof AdminComptaPrevisionsRoute
   AdminMarchesBonsDeCommandeRoute: typeof AdminMarchesBonsDeCommandeRoute
   AdminMarchesCautionsRoute: typeof AdminMarchesCautionsRoute
   AdminMarchesDocumentsRoute: typeof AdminMarchesDocumentsRoute
@@ -336,12 +433,17 @@ interface AdminRouteChildren {
   AdminMarchesReglementationRoute: typeof AdminMarchesReglementationRoute
   AdminMarchesResultatsRoute: typeof AdminMarchesResultatsRoute
   AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
+  AdminComptaIndexRoute: typeof AdminComptaIndexRoute
+  AdminComptaAgencesIdRoute: typeof AdminComptaAgencesIdRoute
   AdminMarchesDossiersIdRoute: typeof AdminMarchesDossiersIdRoute
+  AdminComptaAgencesIndexRoute: typeof AdminComptaAgencesIndexRoute
   AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminComptaObjectifsRoute: AdminComptaObjectifsRoute,
+  AdminComptaPrevisionsRoute: AdminComptaPrevisionsRoute,
   AdminMarchesBonsDeCommandeRoute: AdminMarchesBonsDeCommandeRoute,
   AdminMarchesCautionsRoute: AdminMarchesCautionsRoute,
   AdminMarchesDocumentsRoute: AdminMarchesDocumentsRoute,
@@ -351,7 +453,10 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminMarchesReglementationRoute: AdminMarchesReglementationRoute,
   AdminMarchesResultatsRoute: AdminMarchesResultatsRoute,
   AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
+  AdminComptaIndexRoute: AdminComptaIndexRoute,
+  AdminComptaAgencesIdRoute: AdminComptaAgencesIdRoute,
   AdminMarchesDossiersIdRoute: AdminMarchesDossiersIdRoute,
+  AdminComptaAgencesIndexRoute: AdminComptaAgencesIndexRoute,
   AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
 }
 
