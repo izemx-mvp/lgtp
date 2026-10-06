@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GeoScene } from "@/components/GeoScene";
+const GeoScene3D = lazy(() => import("@/components/GeoScene3D"));
+function hasWebGL() { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; } }
 import { useStore } from "@/lib/store";
 import { ROLES } from "@/lib/seed";
 import { cn } from "@/lib/utils";
@@ -24,6 +26,10 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
   const set = useStore((s) => s.set);
+  const dark = useStore((s) => s.dark);
+  const reduce = useStore((s) => s.reduceMotion);
+  const [gl, setGl] = useState<boolean | null>(null);
+  useEffect(() => { setGl(hasWebGL() && !window.matchMedia("(prefers-reduced-motion: reduce)").matches); set(() => ({ dark: localStorage.getItem("lgtp-dark") === "1" })); }, [set]);
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (pwd !== "Demo2026!") { toast.error("Mot de passe incorrect (démo : Demo2026!)"); return; }
@@ -36,9 +42,10 @@ function Login() {
     }, 900);
   };
   return (
-    <div className="grid min-h-screen lg:grid-cols-[1.2fr_1fr]">
-      <div className="relative hidden overflow-hidden bg-navy lg:block">
-        <GeoScene level="hero" />
+    <div className="grid min-h-screen md:grid-cols-[1.25fr_1fr]">
+      <div className="relative hidden overflow-hidden bg-navy md:block">
+        {gl === null ? null : gl ? <Suspense fallback={<GeoScene level="hero" />}><GeoScene3D dark={dark} reduce={reduce} /></Suspense> : <GeoScene level="hero" />}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/90 via-transparent to-transparent" />
         <div className="pointer-events-none absolute bottom-10 left-10 max-w-md text-primary-foreground">
           <p className="font-display text-3xl font-bold leading-tight">Lire le sol.<br />Piloter les marchés.</p>
           <p className="mt-2 text-sm opacity-80">Le cockpit LGTP : veille et dossiers d'appels d'offres, comptabilité des agences, agents IA — l'humain décide et valide.</p>

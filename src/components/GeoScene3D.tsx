@@ -72,7 +72,7 @@ function Rig({ bounds, dark, reduce }: { bounds: ReturnType<typeof layerBounds>;
     const L = bounds.find((b) => top - depth <= b.top && top - depth >= b.bot);
     if (label.current && L) label.current.textContent = `▶ ${LAYERS[L.k].name} · ${(depth * 5).toFixed(1).replace(".", ",")} m`;
     const shown = Math.max(2, Math.floor((depth / (TOTAL * 0.95)) * QC.length));
-    cpt.current?.geometry.setDrawRange(0, shown * 1);
+    if (cpt.current) (cpt.current.geometry as unknown as { instanceCount: number }).instanceCount = shown - 1;
     if (pulse.current) { const p = (t % 6) / 6; pulse.current.scale.setScalar(0.2 + p * 7); (pulse.current.material as THREE.MeshBasicMaterial).opacity = (1 - p) * 0.55; }
   });
   const steel = dark ? "#cfd8e6" : "#0B1F3A";
