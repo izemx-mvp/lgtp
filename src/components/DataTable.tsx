@@ -54,7 +54,7 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
   const [sel, setSel] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [focus, setFocus] = useState(-1);
-  const views = useStore((s) => s.savedViews[id] ?? []);
+  const views = useStore((s) => s.savedViews[id]) ?? [];
   const setStore = useStore((s) => s.set);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);

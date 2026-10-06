@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useShallow } from "zustand/react/shallow";
 import { useStore, type AgentId } from "@/lib/store";
 import { fdatetime, money } from "@/lib/format";
 import { Status } from "./ui-kit";
@@ -14,8 +15,8 @@ import { pulse } from "@/lib/pulse";
 
 export function AgentPanel({ agent, extra, label = "Agent IA" }: { agent: AgentId; extra?: React.ReactNode; label?: string }) {
   const a = useStore((s) => s.agents.find((x) => x.id === agent))!;
-  const queue = useStore((s) => s.queue.filter((q) => q.agent === agent));
-  const runs = useStore((s) => s.runs.filter((r) => r.agent === agent));
+  const queue = useStore(useShallow((s) => s.queue.filter((q) => q.agent === agent)));
+  const runs = useStore(useShallow((s) => s.runs.filter((r) => r.agent === agent)));
   const { set, approve, runAgent } = useStore.getState();
   const [running, setRunning] = useState<string[] | null>(null);
   const [done, setDone] = useState(0);
