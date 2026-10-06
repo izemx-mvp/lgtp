@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Columns3, Download, Filter, Rows3, Save, Search, X } from "lucide-react";
 import { toast } from "sonner";
@@ -141,7 +142,7 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
               {views.length === 0 && <DropdownMenuItem disabled>Aucune vue</DropdownMenuItem>}
               {views.map((v) => <DropdownMenuItem key={v.name} onClick={() => { const p = Object.fromEntries(new URLSearchParams(v.qs)); u.set(p); toast.success(`Vue « ${v.name} » appliquée`); }}>{v.name}</DropdownMenuItem>)}
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => { const name = window.prompt("Nom de la vue", "Ma vue"); if (!name) return; const qs = new URLSearchParams(Object.entries(u.raw).filter(([k]) => k.startsWith(`${id}_`)).map(([k, v]) => [k.slice(id.length + 1), String(v)])).toString(); setStore((s) => ({ savedViews: { ...s.savedViews, [id]: [...(s.savedViews[id] ?? []), { name, qs }] } })); toast.success("Vue enregistrée"); }}>Enregistrer la vue actuelle</DropdownMenuItem>
+              <DropdownMenuItem onClick={async () => { const name = await ask("Nom de la vue", "Ma vue"); if (!name) return; const qs = new URLSearchParams(Object.entries(u.raw).filter(([k]) => k.startsWith(`${id}_`)).map(([k, v]) => [k.slice(id.length + 1), String(v)])).toString(); setStore((s) => ({ savedViews: { ...s.savedViews, [id]: [...(s.savedViews[id] ?? []), { name, qs }] } })); toast.success("Vue enregistrée"); }}>Enregistrer la vue actuelle</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu>

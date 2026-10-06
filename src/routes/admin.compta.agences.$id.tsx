@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,7 +26,7 @@ function Page() {
   return (
     <div className="space-y-4">
       <PageHeader title={a.nom} crumbs={[{ label: "Comptabilité & Agences" }, { label: "Agences", to: "/admin/compta/agences" }, { label: a.ville }]} sub={`${a.adresse} · ${a.tel} · Chef d'agence : ${a.chef}`} actions={<>
-        <Button variant="outline" onClick={() => { const c = window.prompt("Chef d'agence", a.chef); if (c) { s.set((x) => ({ agences: x.agences.map((g) => (g.id === id ? { ...g, chef: c } : g)) })); toast.success("Agence modifiée"); } }}>Modifier</Button>
+        <Button variant="outline" onClick={async () => { const c = await ask("Chef d'agence", a.chef); if (c) { s.set((x) => ({ agences: x.agences.map((g) => (g.id === id ? { ...g, chef: c } : g)) })); toast.success("Agence modifiée"); } }}>Modifier</Button>
         <AlertDialog><AlertDialogTrigger asChild><Button variant="outline">{a.actif ? "Désactiver" : "Réactiver"}</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>{a.actif ? "Désactiver" : "Réactiver"} {a.nom} ?</AlertDialogTitle></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={() => { s.set((x) => ({ agences: x.agences.map((g) => (g.id === id ? { ...g, actif: !g.actif } : g)) })); toast.success("Statut modifié"); }}>Confirmer</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
         <Button onClick={() => { s.log(s.user, "Agence", id, "Rappel envoyé"); toast.success(`Rappel envoyé à ${a.chef}`); }}>Envoyer un rappel</Button>
         <Button variant="secondary" asChild><Link to="/admin/compta/objectifs">Voir objectifs</Link></Button></>} />
