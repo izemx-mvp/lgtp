@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AgentPanel } from "@/components/AgentPanel";
 import { Card, EmptyState, Jr, PageHeader, Status } from "@/components/ui-kit";
-import { bpdeTotals, docStatus, DOSSIER_STATUTS, STEPS, useStore, type Dossier } from "@/lib/store";
+import { bpdeTotals, docStatus, STEP_STATUT, STEPS, useStore, type Dossier } from "@/lib/store";
 import { daysUntil, enLettres, fdate, fdatetime, money, addDays } from "@/lib/format";
 import { genDoc } from "@/lib/docgen";
 import { pulse } from "@/lib/pulse";
@@ -36,7 +36,7 @@ function Detail() {
   const step = view ?? d.step;
   const t = bpdeTotals(d);
   const upd = (fn: (x: Dossier) => void, msg?: string, author?: string) => s.updDossier(d.id, fn, msg, author);
-  const advance = (to: number) => upd((x) => { x.step = Math.max(x.step, to); x.statut = DOSSIER_STATUTS[Math.min(to - 1, 7)]; }, `Étape ${to - 1} validée`);
+  const advance = (to: number) => upd((x) => { x.step = Math.max(x.step, to); x.statut = STEP_STATUT[to - 1]; }, `Étape ${to - 1} validée`);
   const extra = { staff: s.staff.slice(0, 8), equip: s.equip.filter((e) => e.dispo).slice(0, 8), refs: s.refs.slice(0, 10) };
   const audit = s.audit.filter((a) => a.entityId === d.id);
   const sim = (label: string, ms: number, fn: () => void) => { setBusy(label); setTimeout(() => { fn(); setBusy(null); }, ms); };
