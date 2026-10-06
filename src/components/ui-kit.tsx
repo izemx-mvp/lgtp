@@ -29,7 +29,7 @@ export function EmptyState({ title, text, action }: { title: string; text?: stri
 export interface Crumb { label: string; to?: string }
 export function PageHeader({ title, crumbs, actions, sub }: { title: string; crumbs: Crumb[]; actions?: ReactNode; sub?: ReactNode }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+    <div className="fade-up mb-5 flex flex-wrap items-end justify-between gap-3">
       <div>
         <nav aria-label="Fil d'Ariane" className="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
           {crumbs.map((c, i) => (
@@ -39,7 +39,7 @@ export function PageHeader({ title, crumbs, actions, sub }: { title: string; cru
             </span>
           ))}
         </nav>
-        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight"><span className="h-6 w-1.5 rounded-full bg-gold" />{title}</h1>
         {sub && <div className="mt-1 text-sm text-muted-foreground">{sub}</div>}
       </div>
       <div className="flex flex-wrap items-center gap-2">{actions}</div>
@@ -60,10 +60,13 @@ export function CountUp({ value, format = (n) => Math.round(n).toLocaleString("f
 
 export function Kpi({ label, value, format, hint, tone, to, icon, onHover }: { label: string; value: number; format?: (n: number) => string; hint?: ReactNode; tone?: "warn" | "bad" | "good"; to?: string; icon?: ReactNode; onHover?: () => void }) {
   const body = (
-    <motion.div whileHover={{ y: -2 }} onMouseEnter={onHover} className="h-full rounded-xl border bg-card p-4 card-elev">
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} onMouseEnter={onHover} className="group relative h-full overflow-hidden rounded-xl border bg-card p-4 card-elev surface-hover">
+      <span className={cn("absolute inset-x-0 top-0 h-0.5", tone === "bad" ? "bg-destructive" : tone === "warn" ? "bg-warning" : tone === "good" ? "bg-success" : "bg-brand-gradient")} />
       <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">{label}{icon}</div>
       <div className={cn("mt-2 font-display text-2xl font-bold tabular-nums", tone === "bad" && "text-destructive", tone === "warn" && "text-warning", tone === "good" && "text-success")}><CountUp value={value} format={format} /></div>
       {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
+      <Spark seed={label} className="absolute bottom-2 right-3 h-8 w-20 opacity-40 transition-opacity group-hover:opacity-90" />
+      {to && <span className="absolute bottom-2 left-4 text-[11px] font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">Voir le détail →</span>}
     </motion.div>
   );
   return to ? <Link to={to} className="block">{body}</Link> : body;
@@ -78,6 +81,12 @@ const MAP: Record<string, keyof typeof TONES> = {
   Expiré: "bad", "En retard": "bad", Perdu: "bad", "Non conforme": "bad", "Non identifié": "bad", Bloquant: "bad", Refusé: "bad", "Erreurs à corriger": "bad", Doublon: "bad",
   "À décider": "gold", Nouveau: "info", "En dossier": "info", "Expire dans 30 j": "warn", Partiel: "warn", "Partiellement payée": "warn", Relancée: "warn", "À fournir": "warn", "En attente": "warn", Demandée: "warn", "Mainlevée demandée": "warn", Majeur: "warn",
 };
+function Spark({ seed, className }: { seed: string; className?: string }) {
+  let h = 0; for (const c of seed) h = (h * 31 + c.charCodeAt(0)) % 9973;
+  const pts = Array.from({ length: 10 }, (_, i) => { h = (h * 7919 + 13) % 9973; return `${i * 11},${28 - (h % 20) - i * 0.8}`; }).join(" ");
+  return <svg viewBox="0 0 100 32" className={className} aria-hidden><polyline points={pts} fill="none" stroke="var(--brand-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+}
+
 export function Status({ s, className }: { s: string; className?: string }) {
   return <span className={cn("inline-flex items-center whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium", TONES[MAP[s] ?? "info"], className)}>{s}</span>;
 }
@@ -86,7 +95,7 @@ export function Jr({ j }: { j: number }) {
 }
 export function Card({ title, children, className, actions }: { title?: ReactNode; children: ReactNode; className?: string; actions?: ReactNode }) {
   return (
-    <section className={cn("rounded-xl border bg-card p-4 card-elev", className)}>
+    <section className={cn("fade-up rounded-xl border bg-card p-4 card-elev surface-hover", className)}>
       {(title || actions) && <div className="mb-3 flex items-center justify-between gap-2"><h3 className="text-sm font-semibold">{title}</h3><div className="flex gap-1">{actions}</div></div>}
       {children}
     </section>

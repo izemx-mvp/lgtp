@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { NAV } from "@/lib/nav";
+import { DialogHost } from "@/lib/dialogs";
 import { assertConsistency, useStore } from "@/lib/store";
 import { ROLES, type Role } from "@/lib/seed";
 import { fdatetime, daysUntil } from "@/lib/format";
@@ -156,7 +157,7 @@ function AdminLayout() {
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 px-3 py-5 md:px-6">
+        <main className="relative flex-1 px-3 py-5 md:px-6"><div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
           <AnimatePresence mode="wait">
             <motion.div key={path} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}><Outlet /></motion.div>
           </AnimatePresence>
@@ -167,6 +168,7 @@ function AdminLayout() {
         </footer>
       </div>
       <CmdK open={cmd} setOpen={setCmd} />
+      <DialogHost />
       <AlertDialog open={confirmReset} onOpenChange={setConfirmReset}>
         <AlertDialogContent>
           <AlertDialogHeader><AlertDialogTitle>Réinitialiser les données de démo ?</AlertDialogTitle><AlertDialogDescription>Toutes les modifications effectuées seront perdues.</AlertDialogDescription></AlertDialogHeader>
