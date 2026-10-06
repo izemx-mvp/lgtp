@@ -16,6 +16,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as AdminMarchesOpportunitesRouteImport } from './routes/admin.marches.opportunites'
 import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
 import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
+import { Route as AdminMarchesDossiersIdRouteImport } from './routes/admin.marches.dossiers.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,6 +55,11 @@ const AdminMarchesDossiersIndexRoute =
     path: '/marches/dossiers/',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminMarchesDossiersIdRoute = AdminMarchesDossiersIdRouteImport.update({
+  id: '/marches/dossiers/$id',
+  path: '/marches/dossiers/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -62,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesById {
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRouteTypes {
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/marches/opportunites'
     | '/admin/marches/veille'
+    | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/marches/opportunites'
     | '/admin/marches/veille'
+    | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/marches/opportunites'
     | '/admin/marches/veille'
+    | '/admin/marches/dossiers/$id'
     | '/admin/marches/dossiers/'
   fileRoutesById: FileRoutesById
 }
@@ -168,6 +180,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMarchesDossiersIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/marches/dossiers/$id': {
+      id: '/admin/marches/dossiers/$id'
+      path: '/marches/dossiers/$id'
+      fullPath: '/admin/marches/dossiers/$id'
+      preLoaderRoute: typeof AdminMarchesDossiersIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
@@ -175,6 +194,7 @@ interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminMarchesOpportunitesRoute: typeof AdminMarchesOpportunitesRoute
   AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
+  AdminMarchesDossiersIdRoute: typeof AdminMarchesDossiersIdRoute
   AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
 }
 
@@ -182,6 +202,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminMarchesOpportunitesRoute: AdminMarchesOpportunitesRoute,
   AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
+  AdminMarchesDossiersIdRoute: AdminMarchesDossiersIdRoute,
   AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
 }
 
