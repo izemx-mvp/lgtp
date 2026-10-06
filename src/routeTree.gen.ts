@@ -11,7 +11,36 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminComptaIndexRouteImport } from './routes/admin.compta.index'
+import { Route as AdminComptaBudgetRouteImport } from './routes/admin.compta.budget'
+import { Route as AdminComptaClotureRouteImport } from './routes/admin.compta.cloture'
+import { Route as AdminComptaCreancesRouteImport } from './routes/admin.compta.creances'
+import { Route as AdminComptaEncaissementsRouteImport } from './routes/admin.compta.encaissements'
+import { Route as AdminComptaFournisseursRouteImport } from './routes/admin.compta.fournisseurs'
+import { Route as AdminComptaImportsRouteImport } from './routes/admin.compta.imports'
+import { Route as AdminComptaObjectifsRouteImport } from './routes/admin.compta.objectifs'
+import { Route as AdminComptaObligationsRouteImport } from './routes/admin.compta.obligations'
+import { Route as AdminComptaPrevisionsRouteImport } from './routes/admin.compta.previsions'
+import { Route as AdminComptaTresorerieRouteImport } from './routes/admin.compta.tresorerie'
+import { Route as AdminMarchesBonsDeCommandeRouteImport } from './routes/admin.marches.bons-de-commande'
+import { Route as AdminMarchesCautionsRouteImport } from './routes/admin.marches.cautions'
+import { Route as AdminMarchesDocumentsRouteImport } from './routes/admin.marches.documents'
+import { Route as AdminMarchesOpportunitesRouteImport } from './routes/admin.marches.opportunites'
+import { Route as AdminMarchesPrixRouteImport } from './routes/admin.marches.prix'
+import { Route as AdminMarchesReferencesRouteImport } from './routes/admin.marches.references'
+import { Route as AdminMarchesReglementationRouteImport } from './routes/admin.marches.reglementation'
+import { Route as AdminMarchesResultatsRouteImport } from './routes/admin.marches.resultats'
+import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
+import { Route as AdminComptaAgencesIndexRouteImport } from './routes/admin.compta.agences.index'
+import { Route as AdminComptaAgencesIdRouteImport } from './routes/admin.compta.agences.$id'
+import { Route as AdminComptaFacturationIndexRouteImport } from './routes/admin.compta.facturation.index'
+import { Route as AdminComptaFacturationAvoirsRouteImport } from './routes/admin.compta.facturation.avoirs'
+import { Route as AdminComptaFacturationDecomptesRouteImport } from './routes/admin.compta.facturation.decomptes'
+import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
+import { Route as AdminMarchesDossiersIdRouteImport } from './routes/admin.marches.dossiers.$id'
+import { Route as AdminComptaFacturationFacturesIdRouteImport } from './routes/admin.compta.facturation.factures.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,39 +52,375 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminComptaIndexRoute = AdminComptaIndexRouteImport.update({
+  id: '/compta/',
+  path: '/compta/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaBudgetRoute = AdminComptaBudgetRouteImport.update({
+  id: '/compta/budget',
+  path: '/compta/budget',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaClotureRoute = AdminComptaClotureRouteImport.update({
+  id: '/compta/cloture',
+  path: '/compta/cloture',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaCreancesRoute = AdminComptaCreancesRouteImport.update({
+  id: '/compta/creances',
+  path: '/compta/creances',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaEncaissementsRoute =
+  AdminComptaEncaissementsRouteImport.update({
+    id: '/compta/encaissements',
+    path: '/compta/encaissements',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFournisseursRoute = AdminComptaFournisseursRouteImport.update({
+  id: '/compta/fournisseurs',
+  path: '/compta/fournisseurs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaImportsRoute = AdminComptaImportsRouteImport.update({
+  id: '/compta/imports',
+  path: '/compta/imports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaObjectifsRoute = AdminComptaObjectifsRouteImport.update({
+  id: '/compta/objectifs',
+  path: '/compta/objectifs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaObligationsRoute = AdminComptaObligationsRouteImport.update({
+  id: '/compta/obligations',
+  path: '/compta/obligations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaPrevisionsRoute = AdminComptaPrevisionsRouteImport.update({
+  id: '/compta/previsions',
+  path: '/compta/previsions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaTresorerieRoute = AdminComptaTresorerieRouteImport.update({
+  id: '/compta/tresorerie',
+  path: '/compta/tresorerie',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesBonsDeCommandeRoute =
+  AdminMarchesBonsDeCommandeRouteImport.update({
+    id: '/marches/bons-de-commande',
+    path: '/marches/bons-de-commande',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesCautionsRoute = AdminMarchesCautionsRouteImport.update({
+  id: '/marches/cautions',
+  path: '/marches/cautions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesDocumentsRoute = AdminMarchesDocumentsRouteImport.update({
+  id: '/marches/documents',
+  path: '/marches/documents',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesOpportunitesRoute =
+  AdminMarchesOpportunitesRouteImport.update({
+    id: '/marches/opportunites',
+    path: '/marches/opportunites',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesPrixRoute = AdminMarchesPrixRouteImport.update({
+  id: '/marches/prix',
+  path: '/marches/prix',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesReferencesRoute = AdminMarchesReferencesRouteImport.update({
+  id: '/marches/references',
+  path: '/marches/references',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesReglementationRoute =
+  AdminMarchesReglementationRouteImport.update({
+    id: '/marches/reglementation',
+    path: '/marches/reglementation',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesResultatsRoute = AdminMarchesResultatsRouteImport.update({
+  id: '/marches/resultats',
+  path: '/marches/resultats',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesVeilleRoute = AdminMarchesVeilleRouteImport.update({
+  id: '/marches/veille',
+  path: '/marches/veille',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaAgencesIndexRoute = AdminComptaAgencesIndexRouteImport.update({
+  id: '/compta/agences/',
+  path: '/compta/agences/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaAgencesIdRoute = AdminComptaAgencesIdRouteImport.update({
+  id: '/compta/agences/$id',
+  path: '/compta/agences/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaFacturationIndexRoute =
+  AdminComptaFacturationIndexRouteImport.update({
+    id: '/compta/facturation/',
+    path: '/compta/facturation/',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFacturationAvoirsRoute =
+  AdminComptaFacturationAvoirsRouteImport.update({
+    id: '/compta/facturation/avoirs',
+    path: '/compta/facturation/avoirs',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFacturationDecomptesRoute =
+  AdminComptaFacturationDecomptesRouteImport.update({
+    id: '/compta/facturation/decomptes',
+    path: '/compta/facturation/decomptes',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesDossiersIndexRoute =
+  AdminMarchesDossiersIndexRouteImport.update({
+    id: '/marches/dossiers/',
+    path: '/marches/dossiers/',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesDossiersIdRoute = AdminMarchesDossiersIdRouteImport.update({
+  id: '/marches/dossiers/$id',
+  path: '/marches/dossiers/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaFacturationFacturesIdRoute =
+  AdminComptaFacturationFacturesIdRouteImport.update({
+    id: '/compta/facturation/factures/$id',
+    path: '/compta/facturation/factures/$id',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta/': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation/': typeof AdminComptaFacturationIndexRoute
+  '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation': typeof AdminComptaFacturationIndexRoute
+  '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/admin_/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
+  '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
+  '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
+  '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
+  '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
+  '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/prix': typeof AdminMarchesPrixRoute
+  '/admin/marches/references': typeof AdminMarchesReferencesRoute
+  '/admin/marches/reglementation': typeof AdminMarchesReglementationRoute
+  '/admin/marches/resultats': typeof AdminMarchesResultatsRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/compta/': typeof AdminComptaIndexRoute
+  '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
+  '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
+  '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation/': typeof AdminComptaFacturationIndexRoute
+  '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/admin/login'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/login'
+    | '/admin/'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
+    | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
+    | '/admin/marches/veille'
+    | '/admin/compta/'
+    | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
+    | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences/'
+    | '/admin/compta/facturation/'
+    | '/admin/marches/dossiers/'
+    | '/admin/compta/facturation/factures/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/admin/login'
-  id: '__root__' | '/' | '/admin' | '/admin_/login'
+  to:
+    | '/'
+    | '/admin/login'
+    | '/admin'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
+    | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
+    | '/admin/marches/veille'
+    | '/admin/compta'
+    | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
+    | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences'
+    | '/admin/compta/facturation'
+    | '/admin/marches/dossiers'
+    | '/admin/compta/facturation/factures/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/admin_/login'
+    | '/admin/'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
+    | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
+    | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
+    | '/admin/marches/bons-de-commande'
+    | '/admin/marches/cautions'
+    | '/admin/marches/documents'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/prix'
+    | '/admin/marches/references'
+    | '/admin/marches/reglementation'
+    | '/admin/marches/resultats'
+    | '/admin/marches/veille'
+    | '/admin/compta/'
+    | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
+    | '/admin/marches/dossiers/$id'
+    | '/admin/compta/agences/'
+    | '/admin/compta/facturation/'
+    | '/admin/marches/dossiers/'
+    | '/admin/compta/facturation/factures/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
 }
 
@@ -75,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin_/login': {
       id: '/admin_/login'
       path: '/admin/login'
@@ -82,12 +454,274 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/compta/': {
+      id: '/admin/compta/'
+      path: '/compta'
+      fullPath: '/admin/compta/'
+      preLoaderRoute: typeof AdminComptaIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/budget': {
+      id: '/admin/compta/budget'
+      path: '/compta/budget'
+      fullPath: '/admin/compta/budget'
+      preLoaderRoute: typeof AdminComptaBudgetRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/cloture': {
+      id: '/admin/compta/cloture'
+      path: '/compta/cloture'
+      fullPath: '/admin/compta/cloture'
+      preLoaderRoute: typeof AdminComptaClotureRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/creances': {
+      id: '/admin/compta/creances'
+      path: '/compta/creances'
+      fullPath: '/admin/compta/creances'
+      preLoaderRoute: typeof AdminComptaCreancesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/encaissements': {
+      id: '/admin/compta/encaissements'
+      path: '/compta/encaissements'
+      fullPath: '/admin/compta/encaissements'
+      preLoaderRoute: typeof AdminComptaEncaissementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/fournisseurs': {
+      id: '/admin/compta/fournisseurs'
+      path: '/compta/fournisseurs'
+      fullPath: '/admin/compta/fournisseurs'
+      preLoaderRoute: typeof AdminComptaFournisseursRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/imports': {
+      id: '/admin/compta/imports'
+      path: '/compta/imports'
+      fullPath: '/admin/compta/imports'
+      preLoaderRoute: typeof AdminComptaImportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/objectifs': {
+      id: '/admin/compta/objectifs'
+      path: '/compta/objectifs'
+      fullPath: '/admin/compta/objectifs'
+      preLoaderRoute: typeof AdminComptaObjectifsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/obligations': {
+      id: '/admin/compta/obligations'
+      path: '/compta/obligations'
+      fullPath: '/admin/compta/obligations'
+      preLoaderRoute: typeof AdminComptaObligationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/previsions': {
+      id: '/admin/compta/previsions'
+      path: '/compta/previsions'
+      fullPath: '/admin/compta/previsions'
+      preLoaderRoute: typeof AdminComptaPrevisionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/tresorerie': {
+      id: '/admin/compta/tresorerie'
+      path: '/compta/tresorerie'
+      fullPath: '/admin/compta/tresorerie'
+      preLoaderRoute: typeof AdminComptaTresorerieRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/bons-de-commande': {
+      id: '/admin/marches/bons-de-commande'
+      path: '/marches/bons-de-commande'
+      fullPath: '/admin/marches/bons-de-commande'
+      preLoaderRoute: typeof AdminMarchesBonsDeCommandeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/cautions': {
+      id: '/admin/marches/cautions'
+      path: '/marches/cautions'
+      fullPath: '/admin/marches/cautions'
+      preLoaderRoute: typeof AdminMarchesCautionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/documents': {
+      id: '/admin/marches/documents'
+      path: '/marches/documents'
+      fullPath: '/admin/marches/documents'
+      preLoaderRoute: typeof AdminMarchesDocumentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/opportunites': {
+      id: '/admin/marches/opportunites'
+      path: '/marches/opportunites'
+      fullPath: '/admin/marches/opportunites'
+      preLoaderRoute: typeof AdminMarchesOpportunitesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/prix': {
+      id: '/admin/marches/prix'
+      path: '/marches/prix'
+      fullPath: '/admin/marches/prix'
+      preLoaderRoute: typeof AdminMarchesPrixRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/references': {
+      id: '/admin/marches/references'
+      path: '/marches/references'
+      fullPath: '/admin/marches/references'
+      preLoaderRoute: typeof AdminMarchesReferencesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/reglementation': {
+      id: '/admin/marches/reglementation'
+      path: '/marches/reglementation'
+      fullPath: '/admin/marches/reglementation'
+      preLoaderRoute: typeof AdminMarchesReglementationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/resultats': {
+      id: '/admin/marches/resultats'
+      path: '/marches/resultats'
+      fullPath: '/admin/marches/resultats'
+      preLoaderRoute: typeof AdminMarchesResultatsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/veille': {
+      id: '/admin/marches/veille'
+      path: '/marches/veille'
+      fullPath: '/admin/marches/veille'
+      preLoaderRoute: typeof AdminMarchesVeilleRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/agences/': {
+      id: '/admin/compta/agences/'
+      path: '/compta/agences'
+      fullPath: '/admin/compta/agences/'
+      preLoaderRoute: typeof AdminComptaAgencesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/agences/$id': {
+      id: '/admin/compta/agences/$id'
+      path: '/compta/agences/$id'
+      fullPath: '/admin/compta/agences/$id'
+      preLoaderRoute: typeof AdminComptaAgencesIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/': {
+      id: '/admin/compta/facturation/'
+      path: '/compta/facturation'
+      fullPath: '/admin/compta/facturation/'
+      preLoaderRoute: typeof AdminComptaFacturationIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/avoirs': {
+      id: '/admin/compta/facturation/avoirs'
+      path: '/compta/facturation/avoirs'
+      fullPath: '/admin/compta/facturation/avoirs'
+      preLoaderRoute: typeof AdminComptaFacturationAvoirsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/decomptes': {
+      id: '/admin/compta/facturation/decomptes'
+      path: '/compta/facturation/decomptes'
+      fullPath: '/admin/compta/facturation/decomptes'
+      preLoaderRoute: typeof AdminComptaFacturationDecomptesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/dossiers/': {
+      id: '/admin/marches/dossiers/'
+      path: '/marches/dossiers'
+      fullPath: '/admin/marches/dossiers/'
+      preLoaderRoute: typeof AdminMarchesDossiersIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/dossiers/$id': {
+      id: '/admin/marches/dossiers/$id'
+      path: '/marches/dossiers/$id'
+      fullPath: '/admin/marches/dossiers/$id'
+      preLoaderRoute: typeof AdminMarchesDossiersIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/factures/$id': {
+      id: '/admin/compta/facturation/factures/$id'
+      path: '/compta/facturation/factures/$id'
+      fullPath: '/admin/compta/facturation/factures/$id'
+      preLoaderRoute: typeof AdminComptaFacturationFacturesIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminComptaBudgetRoute: typeof AdminComptaBudgetRoute
+  AdminComptaClotureRoute: typeof AdminComptaClotureRoute
+  AdminComptaCreancesRoute: typeof AdminComptaCreancesRoute
+  AdminComptaEncaissementsRoute: typeof AdminComptaEncaissementsRoute
+  AdminComptaFournisseursRoute: typeof AdminComptaFournisseursRoute
+  AdminComptaImportsRoute: typeof AdminComptaImportsRoute
+  AdminComptaObjectifsRoute: typeof AdminComptaObjectifsRoute
+  AdminComptaObligationsRoute: typeof AdminComptaObligationsRoute
+  AdminComptaPrevisionsRoute: typeof AdminComptaPrevisionsRoute
+  AdminComptaTresorerieRoute: typeof AdminComptaTresorerieRoute
+  AdminMarchesBonsDeCommandeRoute: typeof AdminMarchesBonsDeCommandeRoute
+  AdminMarchesCautionsRoute: typeof AdminMarchesCautionsRoute
+  AdminMarchesDocumentsRoute: typeof AdminMarchesDocumentsRoute
+  AdminMarchesOpportunitesRoute: typeof AdminMarchesOpportunitesRoute
+  AdminMarchesPrixRoute: typeof AdminMarchesPrixRoute
+  AdminMarchesReferencesRoute: typeof AdminMarchesReferencesRoute
+  AdminMarchesReglementationRoute: typeof AdminMarchesReglementationRoute
+  AdminMarchesResultatsRoute: typeof AdminMarchesResultatsRoute
+  AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
+  AdminComptaIndexRoute: typeof AdminComptaIndexRoute
+  AdminComptaAgencesIdRoute: typeof AdminComptaAgencesIdRoute
+  AdminComptaFacturationAvoirsRoute: typeof AdminComptaFacturationAvoirsRoute
+  AdminComptaFacturationDecomptesRoute: typeof AdminComptaFacturationDecomptesRoute
+  AdminMarchesDossiersIdRoute: typeof AdminMarchesDossiersIdRoute
+  AdminComptaAgencesIndexRoute: typeof AdminComptaAgencesIndexRoute
+  AdminComptaFacturationIndexRoute: typeof AdminComptaFacturationIndexRoute
+  AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
+  AdminComptaFacturationFacturesIdRoute: typeof AdminComptaFacturationFacturesIdRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminComptaBudgetRoute: AdminComptaBudgetRoute,
+  AdminComptaClotureRoute: AdminComptaClotureRoute,
+  AdminComptaCreancesRoute: AdminComptaCreancesRoute,
+  AdminComptaEncaissementsRoute: AdminComptaEncaissementsRoute,
+  AdminComptaFournisseursRoute: AdminComptaFournisseursRoute,
+  AdminComptaImportsRoute: AdminComptaImportsRoute,
+  AdminComptaObjectifsRoute: AdminComptaObjectifsRoute,
+  AdminComptaObligationsRoute: AdminComptaObligationsRoute,
+  AdminComptaPrevisionsRoute: AdminComptaPrevisionsRoute,
+  AdminComptaTresorerieRoute: AdminComptaTresorerieRoute,
+  AdminMarchesBonsDeCommandeRoute: AdminMarchesBonsDeCommandeRoute,
+  AdminMarchesCautionsRoute: AdminMarchesCautionsRoute,
+  AdminMarchesDocumentsRoute: AdminMarchesDocumentsRoute,
+  AdminMarchesOpportunitesRoute: AdminMarchesOpportunitesRoute,
+  AdminMarchesPrixRoute: AdminMarchesPrixRoute,
+  AdminMarchesReferencesRoute: AdminMarchesReferencesRoute,
+  AdminMarchesReglementationRoute: AdminMarchesReglementationRoute,
+  AdminMarchesResultatsRoute: AdminMarchesResultatsRoute,
+  AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
+  AdminComptaIndexRoute: AdminComptaIndexRoute,
+  AdminComptaAgencesIdRoute: AdminComptaAgencesIdRoute,
+  AdminComptaFacturationAvoirsRoute: AdminComptaFacturationAvoirsRoute,
+  AdminComptaFacturationDecomptesRoute: AdminComptaFacturationDecomptesRoute,
+  AdminMarchesDossiersIdRoute: AdminMarchesDossiersIdRoute,
+  AdminComptaAgencesIndexRoute: AdminComptaAgencesIndexRoute,
+  AdminComptaFacturationIndexRoute: AdminComptaFacturationIndexRoute,
+  AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
+  AdminComptaFacturationFacturesIdRoute: AdminComptaFacturationFacturesIdRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
