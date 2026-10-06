@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminMarchesOpportunitesRouteImport } from './routes/admin.marches.opportunites'
+import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
+import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,39 +27,93 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMarchesOpportunitesRoute =
+  AdminMarchesOpportunitesRouteImport.update({
+    id: '/marches/opportunites',
+    path: '/marches/opportunites',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminMarchesVeilleRoute = AdminMarchesVeilleRouteImport.update({
+  id: '/marches/veille',
+  path: '/marches/veille',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMarchesDossiersIndexRoute =
+  AdminMarchesDossiersIndexRouteImport.update({
+    id: '/marches/dossiers/',
+    path: '/marches/dossiers/',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/admin_/login': typeof AdminLoginRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/marches/opportunites': typeof AdminMarchesOpportunitesRoute
+  '/admin/marches/veille': typeof AdminMarchesVeilleRoute
+  '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/admin/login'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/login'
+    | '/admin/'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/veille'
+    | '/admin/marches/dossiers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/admin/login'
-  id: '__root__' | '/' | '/admin' | '/admin_/login'
+  to:
+    | '/'
+    | '/admin/login'
+    | '/admin'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/veille'
+    | '/admin/marches/dossiers'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/admin_/login'
+    | '/admin/'
+    | '/admin/marches/opportunites'
+    | '/admin/marches/veille'
+    | '/admin/marches/dossiers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
 }
 
@@ -75,6 +133,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin_/login': {
       id: '/admin_/login'
       path: '/admin/login'
@@ -82,12 +147,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/marches/opportunites': {
+      id: '/admin/marches/opportunites'
+      path: '/marches/opportunites'
+      fullPath: '/admin/marches/opportunites'
+      preLoaderRoute: typeof AdminMarchesOpportunitesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/veille': {
+      id: '/admin/marches/veille'
+      path: '/marches/veille'
+      fullPath: '/admin/marches/veille'
+      preLoaderRoute: typeof AdminMarchesVeilleRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/marches/dossiers/': {
+      id: '/admin/marches/dossiers/'
+      path: '/marches/dossiers'
+      fullPath: '/admin/marches/dossiers/'
+      preLoaderRoute: typeof AdminMarchesDossiersIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminMarchesOpportunitesRoute: typeof AdminMarchesOpportunitesRoute
+  AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
+  AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminMarchesOpportunitesRoute: AdminMarchesOpportunitesRoute,
+  AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
+  AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
