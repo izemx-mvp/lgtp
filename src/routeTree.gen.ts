@@ -14,8 +14,16 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as AdminComptaIndexRouteImport } from './routes/admin.compta.index'
+import { Route as AdminComptaBudgetRouteImport } from './routes/admin.compta.budget'
+import { Route as AdminComptaClotureRouteImport } from './routes/admin.compta.cloture'
+import { Route as AdminComptaCreancesRouteImport } from './routes/admin.compta.creances'
+import { Route as AdminComptaEncaissementsRouteImport } from './routes/admin.compta.encaissements'
+import { Route as AdminComptaFournisseursRouteImport } from './routes/admin.compta.fournisseurs'
+import { Route as AdminComptaImportsRouteImport } from './routes/admin.compta.imports'
 import { Route as AdminComptaObjectifsRouteImport } from './routes/admin.compta.objectifs'
+import { Route as AdminComptaObligationsRouteImport } from './routes/admin.compta.obligations'
 import { Route as AdminComptaPrevisionsRouteImport } from './routes/admin.compta.previsions'
+import { Route as AdminComptaTresorerieRouteImport } from './routes/admin.compta.tresorerie'
 import { Route as AdminMarchesBonsDeCommandeRouteImport } from './routes/admin.marches.bons-de-commande'
 import { Route as AdminMarchesCautionsRouteImport } from './routes/admin.marches.cautions'
 import { Route as AdminMarchesDocumentsRouteImport } from './routes/admin.marches.documents'
@@ -59,14 +67,55 @@ const AdminComptaIndexRoute = AdminComptaIndexRouteImport.update({
   path: '/compta/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminComptaBudgetRoute = AdminComptaBudgetRouteImport.update({
+  id: '/compta/budget',
+  path: '/compta/budget',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaClotureRoute = AdminComptaClotureRouteImport.update({
+  id: '/compta/cloture',
+  path: '/compta/cloture',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaCreancesRoute = AdminComptaCreancesRouteImport.update({
+  id: '/compta/creances',
+  path: '/compta/creances',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaEncaissementsRoute =
+  AdminComptaEncaissementsRouteImport.update({
+    id: '/compta/encaissements',
+    path: '/compta/encaissements',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFournisseursRoute = AdminComptaFournisseursRouteImport.update({
+  id: '/compta/fournisseurs',
+  path: '/compta/fournisseurs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaImportsRoute = AdminComptaImportsRouteImport.update({
+  id: '/compta/imports',
+  path: '/compta/imports',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminComptaObjectifsRoute = AdminComptaObjectifsRouteImport.update({
   id: '/compta/objectifs',
   path: '/compta/objectifs',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminComptaObligationsRoute = AdminComptaObligationsRouteImport.update({
+  id: '/compta/obligations',
+  path: '/compta/obligations',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminComptaPrevisionsRoute = AdminComptaPrevisionsRouteImport.update({
   id: '/compta/previsions',
   path: '/compta/previsions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminComptaTresorerieRoute = AdminComptaTresorerieRouteImport.update({
+  id: '/compta/tresorerie',
+  path: '/compta/tresorerie',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminMarchesBonsDeCommandeRoute =
@@ -168,8 +217,16 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
   '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
   '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -193,8 +250,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
   '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
   '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -220,8 +285,16 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/admin_/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/compta/budget': typeof AdminComptaBudgetRoute
+  '/admin/compta/cloture': typeof AdminComptaClotureRoute
+  '/admin/compta/creances': typeof AdminComptaCreancesRoute
+  '/admin/compta/encaissements': typeof AdminComptaEncaissementsRoute
+  '/admin/compta/fournisseurs': typeof AdminComptaFournisseursRoute
+  '/admin/compta/imports': typeof AdminComptaImportsRoute
   '/admin/compta/objectifs': typeof AdminComptaObjectifsRoute
+  '/admin/compta/obligations': typeof AdminComptaObligationsRoute
   '/admin/compta/previsions': typeof AdminComptaPrevisionsRoute
+  '/admin/compta/tresorerie': typeof AdminComptaTresorerieRoute
   '/admin/marches/bons-de-commande': typeof AdminMarchesBonsDeCommandeRoute
   '/admin/marches/cautions': typeof AdminMarchesCautionsRoute
   '/admin/marches/documents': typeof AdminMarchesDocumentsRoute
@@ -248,8 +321,16 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
     | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
     | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -273,8 +354,16 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/login'
     | '/admin'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
     | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
     | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -299,8 +388,16 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin_/login'
     | '/admin/'
+    | '/admin/compta/budget'
+    | '/admin/compta/cloture'
+    | '/admin/compta/creances'
+    | '/admin/compta/encaissements'
+    | '/admin/compta/fournisseurs'
+    | '/admin/compta/imports'
     | '/admin/compta/objectifs'
+    | '/admin/compta/obligations'
     | '/admin/compta/previsions'
+    | '/admin/compta/tresorerie'
     | '/admin/marches/bons-de-commande'
     | '/admin/marches/cautions'
     | '/admin/marches/documents'
@@ -364,6 +461,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminComptaIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/compta/budget': {
+      id: '/admin/compta/budget'
+      path: '/compta/budget'
+      fullPath: '/admin/compta/budget'
+      preLoaderRoute: typeof AdminComptaBudgetRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/cloture': {
+      id: '/admin/compta/cloture'
+      path: '/compta/cloture'
+      fullPath: '/admin/compta/cloture'
+      preLoaderRoute: typeof AdminComptaClotureRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/creances': {
+      id: '/admin/compta/creances'
+      path: '/compta/creances'
+      fullPath: '/admin/compta/creances'
+      preLoaderRoute: typeof AdminComptaCreancesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/encaissements': {
+      id: '/admin/compta/encaissements'
+      path: '/compta/encaissements'
+      fullPath: '/admin/compta/encaissements'
+      preLoaderRoute: typeof AdminComptaEncaissementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/fournisseurs': {
+      id: '/admin/compta/fournisseurs'
+      path: '/compta/fournisseurs'
+      fullPath: '/admin/compta/fournisseurs'
+      preLoaderRoute: typeof AdminComptaFournisseursRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/imports': {
+      id: '/admin/compta/imports'
+      path: '/compta/imports'
+      fullPath: '/admin/compta/imports'
+      preLoaderRoute: typeof AdminComptaImportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/compta/objectifs': {
       id: '/admin/compta/objectifs'
       path: '/compta/objectifs'
@@ -371,11 +510,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminComptaObjectifsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/compta/obligations': {
+      id: '/admin/compta/obligations'
+      path: '/compta/obligations'
+      fullPath: '/admin/compta/obligations'
+      preLoaderRoute: typeof AdminComptaObligationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/compta/previsions': {
       id: '/admin/compta/previsions'
       path: '/compta/previsions'
       fullPath: '/admin/compta/previsions'
       preLoaderRoute: typeof AdminComptaPrevisionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/tresorerie': {
+      id: '/admin/compta/tresorerie'
+      path: '/compta/tresorerie'
+      fullPath: '/admin/compta/tresorerie'
+      preLoaderRoute: typeof AdminComptaTresorerieRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/marches/bons-de-commande': {
@@ -502,8 +655,16 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminComptaBudgetRoute: typeof AdminComptaBudgetRoute
+  AdminComptaClotureRoute: typeof AdminComptaClotureRoute
+  AdminComptaCreancesRoute: typeof AdminComptaCreancesRoute
+  AdminComptaEncaissementsRoute: typeof AdminComptaEncaissementsRoute
+  AdminComptaFournisseursRoute: typeof AdminComptaFournisseursRoute
+  AdminComptaImportsRoute: typeof AdminComptaImportsRoute
   AdminComptaObjectifsRoute: typeof AdminComptaObjectifsRoute
+  AdminComptaObligationsRoute: typeof AdminComptaObligationsRoute
   AdminComptaPrevisionsRoute: typeof AdminComptaPrevisionsRoute
+  AdminComptaTresorerieRoute: typeof AdminComptaTresorerieRoute
   AdminMarchesBonsDeCommandeRoute: typeof AdminMarchesBonsDeCommandeRoute
   AdminMarchesCautionsRoute: typeof AdminMarchesCautionsRoute
   AdminMarchesDocumentsRoute: typeof AdminMarchesDocumentsRoute
@@ -526,8 +687,16 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminComptaBudgetRoute: AdminComptaBudgetRoute,
+  AdminComptaClotureRoute: AdminComptaClotureRoute,
+  AdminComptaCreancesRoute: AdminComptaCreancesRoute,
+  AdminComptaEncaissementsRoute: AdminComptaEncaissementsRoute,
+  AdminComptaFournisseursRoute: AdminComptaFournisseursRoute,
+  AdminComptaImportsRoute: AdminComptaImportsRoute,
   AdminComptaObjectifsRoute: AdminComptaObjectifsRoute,
+  AdminComptaObligationsRoute: AdminComptaObligationsRoute,
   AdminComptaPrevisionsRoute: AdminComptaPrevisionsRoute,
+  AdminComptaTresorerieRoute: AdminComptaTresorerieRoute,
   AdminMarchesBonsDeCommandeRoute: AdminMarchesBonsDeCommandeRoute,
   AdminMarchesCautionsRoute: AdminMarchesCautionsRoute,
   AdminMarchesDocumentsRoute: AdminMarchesDocumentsRoute,
