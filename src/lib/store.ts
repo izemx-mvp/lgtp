@@ -45,7 +45,7 @@ export function buildChecklist(ao: S.AO): Piece[] {
   ];
 }
 export function buildBPDE(ao: S.AO, prix: S.Prix[]): BLine[] {
-  const scale = Math.max(0.3, ao.estimation / 1.2 / 600000);
+  const scale = Math.max(0.3, ao.estimation / 1.2 / 330000);
   const pickP = (code: string) => prix.find((p) => p.code === code)!;
   const items: [string, string, number][] = [["P01", "Installation", 1], ["P02", "Reconnaissance", Math.round(120 * scale)], ["P03", "Reconnaissance", Math.round(40 * scale)], ["P05", "Essais in situ", Math.round(150 * scale)], ["P06", "Essais in situ", Math.round(30 * scale)], ["P07", "Essais in situ", Math.round(12 * scale)], ["P09", "Laboratoire", Math.round(40 * scale)], ["P10", "Laboratoire", Math.round(30 * scale)], ["P11", "Laboratoire", Math.round(15 * scale)], ["P12", "Laboratoire", Math.round(10 * scale)], ["P16", "Rapports", 1]];
   return items.map(([c, chap, q], i) => { const p = pickP(c); return { id: uid("bl"), num: String(i + 1), chap, designation: p.designation, unite: p.unite, qte: Math.max(1, q), pu: p.prix, suggere: p.prix }; });
@@ -57,6 +57,7 @@ export function bpdeTotals(d: Dossier) {
 }
 export const factTTC = (f: S.Facture) => f.ht * (1 + TVA);
 export const DOSSIER_STATUTS = ["Brouillon", "En préparation", "En revue", "Prêt à signer", "Signé", "Déposé", "Ouverture des plis", "Résultat"];
+export const STEP_STATUT = ["Brouillon", "En préparation", "En préparation", "En préparation", "En préparation", "En revue", "Prêt à signer", "Déposé"];
 export const STEPS = ["Analyse du RC / CPS", "Checklist des pièces", "Génération des documents", "Chiffrage (BPDE)", "Cautionnement provisoire", "Revue de conformité", "Signature & dépôt", "Suivi & résultat"];
 
 function docStatus(d?: S.DocPerm) {
@@ -88,7 +89,7 @@ function seedAll() {
     if (step >= 3) cl.forEach((p) => (p.statut = p.source === "généré" ? "Validé" : p.source === "bibliothèque" ? "Fourni" : p.statut));
     if (k === 4) { const f = cl.find((p) => p.docType === "Attestation CNSS")!; f.statut = "Expiré"; f.commentaire = "Attestation expirée — à renouveler"; }
     const d: Dossier = {
-      id: `ds${String(k + 1).padStart(3, "0")}`, aoId: ao.id, step, statut: DOSSIER_STATUTS[Math.min(step - 1, 7)], checklist: cl, bpde: buildBPDE(ao, prix),
+      id: `ds${String(k + 1).padStart(3, "0")}`, aoId: ao.id, step, statut: STEP_STATUT[step - 1], checklist: cl, bpde: buildBPDE(ao, prix),
       coefs: { marge: 8, depl: k % 2 ? 4 : 2, aleas: 3, remise: 0 }, issues: [], revueDone: step > 6, validations: step > 6 ? ["Préparateur", "Responsable marchés", "Direction"] : [], signed: step > 6,
       generated: step >= 3 ? ["Déclaration sur l'honneur", "Acte d'engagement", "Note moyens humains & techniques"] : [], extracted: extract(ao), tasks: [{ id: uid("t"), text: "Vérifier le BPDE", who: S.PEOPLE[1], due: iso(addDays(2)), done: false }], messages: [], cautionDemandee: step >= 5,
       ouverture: iso(addDays(daysUntil(ao.deadline) + 1)),
