@@ -27,8 +27,12 @@ import { Route as AdminMarchesResultatsRouteImport } from './routes/admin.marche
 import { Route as AdminMarchesVeilleRouteImport } from './routes/admin.marches.veille'
 import { Route as AdminComptaAgencesIndexRouteImport } from './routes/admin.compta.agences.index'
 import { Route as AdminComptaAgencesIdRouteImport } from './routes/admin.compta.agences.$id'
+import { Route as AdminComptaFacturationIndexRouteImport } from './routes/admin.compta.facturation.index'
+import { Route as AdminComptaFacturationAvoirsRouteImport } from './routes/admin.compta.facturation.avoirs'
+import { Route as AdminComptaFacturationDecomptesRouteImport } from './routes/admin.compta.facturation.decomptes'
 import { Route as AdminMarchesDossiersIndexRouteImport } from './routes/admin.marches.dossiers.index'
 import { Route as AdminMarchesDossiersIdRouteImport } from './routes/admin.marches.dossiers.$id'
+import { Route as AdminComptaFacturationFacturesIdRouteImport } from './routes/admin.compta.facturation.factures.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -123,6 +127,24 @@ const AdminComptaAgencesIdRoute = AdminComptaAgencesIdRouteImport.update({
   path: '/compta/agences/$id',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminComptaFacturationIndexRoute =
+  AdminComptaFacturationIndexRouteImport.update({
+    id: '/compta/facturation/',
+    path: '/compta/facturation/',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFacturationAvoirsRoute =
+  AdminComptaFacturationAvoirsRouteImport.update({
+    id: '/compta/facturation/avoirs',
+    path: '/compta/facturation/avoirs',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminComptaFacturationDecomptesRoute =
+  AdminComptaFacturationDecomptesRouteImport.update({
+    id: '/compta/facturation/decomptes',
+    path: '/compta/facturation/decomptes',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminMarchesDossiersIndexRoute =
   AdminMarchesDossiersIndexRouteImport.update({
     id: '/marches/dossiers/',
@@ -134,6 +156,12 @@ const AdminMarchesDossiersIdRoute = AdminMarchesDossiersIdRouteImport.update({
   path: '/marches/dossiers/$id',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminComptaFacturationFacturesIdRoute =
+  AdminComptaFacturationFacturesIdRouteImport.update({
+    id: '/compta/facturation/factures/$id',
+    path: '/compta/facturation/factures/$id',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -153,9 +181,13 @@ export interface FileRoutesByFullPath {
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/compta/': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation/': typeof AdminComptaFacturationIndexRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -174,9 +206,13 @@ export interface FileRoutesByTo {
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/compta': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/compta/agences': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation': typeof AdminComptaFacturationIndexRoute
   '/admin/marches/dossiers': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -197,9 +233,13 @@ export interface FileRoutesById {
   '/admin/marches/veille': typeof AdminMarchesVeilleRoute
   '/admin/compta/': typeof AdminComptaIndexRoute
   '/admin/compta/agences/$id': typeof AdminComptaAgencesIdRoute
+  '/admin/compta/facturation/avoirs': typeof AdminComptaFacturationAvoirsRoute
+  '/admin/compta/facturation/decomptes': typeof AdminComptaFacturationDecomptesRoute
   '/admin/marches/dossiers/$id': typeof AdminMarchesDossiersIdRoute
   '/admin/compta/agences/': typeof AdminComptaAgencesIndexRoute
+  '/admin/compta/facturation/': typeof AdminComptaFacturationIndexRoute
   '/admin/marches/dossiers/': typeof AdminMarchesDossiersIndexRoute
+  '/admin/compta/facturation/factures/$id': typeof AdminComptaFacturationFacturesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -221,9 +261,13 @@ export interface FileRouteTypes {
     | '/admin/marches/veille'
     | '/admin/compta/'
     | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
     | '/admin/marches/dossiers/$id'
     | '/admin/compta/agences/'
+    | '/admin/compta/facturation/'
     | '/admin/marches/dossiers/'
+    | '/admin/compta/facturation/factures/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -242,9 +286,13 @@ export interface FileRouteTypes {
     | '/admin/marches/veille'
     | '/admin/compta'
     | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
     | '/admin/marches/dossiers/$id'
     | '/admin/compta/agences'
+    | '/admin/compta/facturation'
     | '/admin/marches/dossiers'
+    | '/admin/compta/facturation/factures/$id'
   id:
     | '__root__'
     | '/'
@@ -264,9 +312,13 @@ export interface FileRouteTypes {
     | '/admin/marches/veille'
     | '/admin/compta/'
     | '/admin/compta/agences/$id'
+    | '/admin/compta/facturation/avoirs'
+    | '/admin/compta/facturation/decomptes'
     | '/admin/marches/dossiers/$id'
     | '/admin/compta/agences/'
+    | '/admin/compta/facturation/'
     | '/admin/marches/dossiers/'
+    | '/admin/compta/facturation/factures/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -403,6 +455,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminComptaAgencesIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/compta/facturation/': {
+      id: '/admin/compta/facturation/'
+      path: '/compta/facturation'
+      fullPath: '/admin/compta/facturation/'
+      preLoaderRoute: typeof AdminComptaFacturationIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/avoirs': {
+      id: '/admin/compta/facturation/avoirs'
+      path: '/compta/facturation/avoirs'
+      fullPath: '/admin/compta/facturation/avoirs'
+      preLoaderRoute: typeof AdminComptaFacturationAvoirsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/decomptes': {
+      id: '/admin/compta/facturation/decomptes'
+      path: '/compta/facturation/decomptes'
+      fullPath: '/admin/compta/facturation/decomptes'
+      preLoaderRoute: typeof AdminComptaFacturationDecomptesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/marches/dossiers/': {
       id: '/admin/marches/dossiers/'
       path: '/marches/dossiers'
@@ -415,6 +488,13 @@ declare module '@tanstack/react-router' {
       path: '/marches/dossiers/$id'
       fullPath: '/admin/marches/dossiers/$id'
       preLoaderRoute: typeof AdminMarchesDossiersIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/compta/facturation/factures/$id': {
+      id: '/admin/compta/facturation/factures/$id'
+      path: '/compta/facturation/factures/$id'
+      fullPath: '/admin/compta/facturation/factures/$id'
+      preLoaderRoute: typeof AdminComptaFacturationFacturesIdRouteImport
       parentRoute: typeof AdminRoute
     }
   }
@@ -435,9 +515,13 @@ interface AdminRouteChildren {
   AdminMarchesVeilleRoute: typeof AdminMarchesVeilleRoute
   AdminComptaIndexRoute: typeof AdminComptaIndexRoute
   AdminComptaAgencesIdRoute: typeof AdminComptaAgencesIdRoute
+  AdminComptaFacturationAvoirsRoute: typeof AdminComptaFacturationAvoirsRoute
+  AdminComptaFacturationDecomptesRoute: typeof AdminComptaFacturationDecomptesRoute
   AdminMarchesDossiersIdRoute: typeof AdminMarchesDossiersIdRoute
   AdminComptaAgencesIndexRoute: typeof AdminComptaAgencesIndexRoute
+  AdminComptaFacturationIndexRoute: typeof AdminComptaFacturationIndexRoute
   AdminMarchesDossiersIndexRoute: typeof AdminMarchesDossiersIndexRoute
+  AdminComptaFacturationFacturesIdRoute: typeof AdminComptaFacturationFacturesIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -455,9 +539,13 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminMarchesVeilleRoute: AdminMarchesVeilleRoute,
   AdminComptaIndexRoute: AdminComptaIndexRoute,
   AdminComptaAgencesIdRoute: AdminComptaAgencesIdRoute,
+  AdminComptaFacturationAvoirsRoute: AdminComptaFacturationAvoirsRoute,
+  AdminComptaFacturationDecomptesRoute: AdminComptaFacturationDecomptesRoute,
   AdminMarchesDossiersIdRoute: AdminMarchesDossiersIdRoute,
   AdminComptaAgencesIndexRoute: AdminComptaAgencesIndexRoute,
+  AdminComptaFacturationIndexRoute: AdminComptaFacturationIndexRoute,
   AdminMarchesDossiersIndexRoute: AdminMarchesDossiersIndexRoute,
+  AdminComptaFacturationFacturesIdRoute: AdminComptaFacturationFacturesIdRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
