@@ -124,7 +124,7 @@ function CameraRig({ reduce }: { reduce: boolean }) {
     const t = clock.getElapsedTime(); if (t0.current === null) t0.current = t;
     const intro = Math.min(1, (t - t0.current) / 3); const e = 1 - Math.pow(1 - intro, 3);
     const orbit = reduce ? 0 : Math.sin(t * 0.08) * 0.18;
-    const ang = 0.55 + orbit + pointer.x * 0.1, r = 17 - e * 4;
+    const ang = 0.55 + orbit + pointer.x * 0.1, r = 24 - e * 5;
     const target = new THREE.Vector3(Math.sin(ang) * r, 3.2 + pointer.y * 0.8, Math.cos(ang) * r);
     camera.position.lerp(target, 1 - Math.exp(-3 * Math.min(dt, 0.05)));
     camera.lookAt(0.6, 0.3, 0);
