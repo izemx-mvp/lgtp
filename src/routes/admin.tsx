@@ -159,7 +159,7 @@ function AdminLayout() {
         </header>
         <main className="relative flex-1 px-3 py-5 md:px-6"><div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
           <AnimatePresence mode="wait">
-            <motion.div key={path} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}><Outlet /></motion.div>
+            <motion.div className="relative" key={path} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}><Outlet /></motion.div>
           </AnimatePresence>
         </main>
         <footer className="flex items-center justify-between border-t px-6 py-3 text-xs text-muted-foreground">
