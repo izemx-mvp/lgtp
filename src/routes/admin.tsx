@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { NAV } from "@/lib/nav";
+import { DialogHost } from "@/lib/dialogs";
 import { assertConsistency, useStore } from "@/lib/store";
 import { ROLES, type Role } from "@/lib/seed";
 import { fdatetime, daysUntil } from "@/lib/format";
@@ -45,6 +46,7 @@ function Sidebar({ collapsed, onNav }: { collapsed: boolean; onNav?: () => void 
           const open = !closed.includes(g.label);
           return (
             <div key={g.label}>
+              {!single && collapsed && <div className="mx-3 my-2 h-px bg-sidebar-border" />}
               {!single && !collapsed && (
                 <button onClick={() => setClosed((c) => (open ? [...c, g.label] : c.filter((x) => x !== g.label)))} className="mt-3 flex w-full items-center gap-2 px-2 py-1 text-[11px] font-semibold uppercase tracking-wider opacity-60 hover:opacity-100">
                   <g.icon className="h-3.5 w-3.5" />{g.label}<ChevronDown className={cn("ml-auto h-3 w-3 transition", !open && "-rotate-90")} />
@@ -54,10 +56,11 @@ function Sidebar({ collapsed, onNav }: { collapsed: boolean; onNav?: () => void 
                 const active = it.to === "/admin" ? path === "/admin" || path === "/admin/" : path === it.to || (path.startsWith(it.to + "/") && !g.items.some((o) => o.to !== it.to && o.to.startsWith(it.to) && path.startsWith(o.to)));
                 const n = it.badge ? badges[it.badge] : 0;
                 return (
-                  <Link key={it.to} to={it.to} onClick={onNav} title={it.label} className={cn("relative flex items-center gap-2 rounded-md px-2.5 py-1.5 text-sm transition-colors hover:bg-sidebar-accent", active && "bg-sidebar-accent font-medium text-sidebar-accent-foreground")}>
+                  <Link key={it.to} to={it.to} onClick={onNav} title={it.label} className={cn("group/nav relative flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm transition-all duration-200 hover:translate-x-0.5 hover:bg-sidebar-accent", collapsed && "justify-center px-0", active && "bg-sidebar-accent font-medium text-sidebar-accent-foreground shadow-[inset_0_0_0_1px_var(--sidebar-border)]")}>
                     {active && <span className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-sidebar-primary" />}
-                    {(single || collapsed) && <g.icon className="h-4 w-4 shrink-0" />}
+                    <it.icon className={cn("h-4 w-4 shrink-0 transition-colors", active ? "text-sidebar-primary" : "opacity-70 group-hover/nav:opacity-100")} />
                     {!collapsed && <span className="truncate">{it.label}</span>}
+                    {collapsed && n > 0 && <span className="absolute right-1.5 top-1 h-2 w-2 rounded-full bg-sidebar-primary" />}
                     {!collapsed && n > 0 && <span className="ml-auto rounded-full bg-sidebar-primary px-1.5 text-[10px] font-bold text-sidebar-primary-foreground">{n}</span>}
                   </Link>
                 );
@@ -154,9 +157,9 @@ function AdminLayout() {
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 px-3 py-5 md:px-6">
+        <main className="relative flex-1 px-3 py-5 md:px-6"><div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
           <AnimatePresence mode="wait">
-            <motion.div key={path} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}><Outlet /></motion.div>
+            <motion.div className="relative" key={path} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}><Outlet /></motion.div>
           </AnimatePresence>
         </main>
         <footer className="flex items-center justify-between border-t px-6 py-3 text-xs text-muted-foreground">
@@ -165,6 +168,7 @@ function AdminLayout() {
         </footer>
       </div>
       <CmdK open={cmd} setOpen={setCmd} />
+      <DialogHost />
       <AlertDialog open={confirmReset} onOpenChange={setConfirmReset}>
         <AlertDialogContent>
           <AlertDialogHeader><AlertDialogTitle>Réinitialiser les données de démo ?</AlertDialogTitle><AlertDialogDescription>Toutes les modifications effectuées seront perdues.</AlertDialogDescription></AlertDialogHeader>

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,7 @@ function Page() {
       <DataTable id="rq" title="File « À rapprocher »" rows={todo} columns={[{ key: "date", label: "Date", render: (r) => fdate(r.date) }, { key: "libelle", label: "Libellé" }, { key: "montant", label: "Montant", align: "right", render: (r) => money(r.montant) }, { key: "mode", label: "Mode", filter: true }, { key: "suggestion", label: "Facture suggérée", value: (r) => fnum(r.suggestion) }, { key: "confiance", label: "Confiance", align: "right", value: (r) => r.confiance ?? 0, render: (r) => (r.confiance ? `${r.confiance} %` : "—") }, { key: "statut", label: "Statut", filter: true, render: (r) => <Status s={r.statut} /> }]}
         actions={(r) => <>
           <Button size="sm" disabled={!r.suggestion || locked} onClick={() => { s.matchReleve(r.id, r.suggestion!); toast.success(`Rapproché avec ${fnum(r.suggestion)} — facture, créances et trésorerie mises à jour`); }}>Accepter</Button>
-          <Button size="sm" variant="ghost" disabled={locked} onClick={() => { const n = window.prompt("N° de facture (ex. FA-2026-0012)"); const f = s.factures.find((x) => x.num === n); if (f) { s.matchReleve(r.id, f.id); toast.success("Rapproché"); } else if (n) toast.error("Facture introuvable"); }}>Changer</Button>
+          <Button size="sm" variant="ghost" disabled={locked} onClick={async () => { const n = await ask("N° de facture (ex. FA-2026-0012)"); const f = s.factures.find((x) => x.num === n); if (f) { s.matchReleve(r.id, f.id); toast.success("Rapproché"); } else if (n) toast.error("Facture introuvable"); }}>Changer</Button>
           <Button size="sm" variant="ghost" disabled={locked} onClick={() => { s.set((x) => ({ releves: x.releves.map((l) => (l.id === r.id ? { ...l, statut: "Rapproché", libelle: l.libelle + " (frais bancaires)" } : l)) })); toast.success("Marqué frais bancaires"); }}>Frais</Button>
           {r.statut === "Doublon" && <Button size="sm" variant="ghost" onClick={() => { s.set((x) => ({ releves: x.releves.filter((l) => l.id !== r.id) })); toast.success("Doublon supprimé"); }}>Supprimer</Button>}</>} />
       <Card title="Registre (lignes rapprochées)"><DataTable id="rr" rows={s.releves.filter((r) => r.statut === "Rapproché")} columns={[{ key: "date", label: "Date", render: (r) => fdate(r.date) }, { key: "compte", label: "Compte", filter: true, value: (r) => s.comptes.find((c) => c.id === r.compte)!.banque }, { key: "libelle", label: "Libellé" }, { key: "montant", label: "Montant", align: "right", render: (r) => money(r.montant) }, { key: "mode", label: "Mode", filter: true }, { key: "factureId", label: "Facture", value: (r) => fnum(r.factureId) }]} /></Card>

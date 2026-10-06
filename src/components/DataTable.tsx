@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
-import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Columns3, Download, Filter, Rows3, Save, Search, X } from "lucide-react";
+import { Eye, ArrowDown, ArrowUp, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Columns3, Download, Filter, Rows3, Save, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { downloadCSV, makePdf } from "@/lib/pdf";
 import { useStore } from "@/lib/store";
@@ -54,6 +56,8 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
   const [sel, setSel] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [focus, setFocus] = useState(-1);
+  const [detail, setDetail] = useState<T | null>(null);
+  const openRow = (r: T) => (onRowClick ? onRowClick(r) : setDetail(r));
   const views = useStore((s) => s.savedViews[id]) ?? [];
   const setStore = useStore((s) => s.set);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -99,7 +103,7 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
   const onKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") { e.preventDefault(); setFocus((f) => Math.min(slice.length - 1, f + 1)); }
     if (e.key === "ArrowUp") { e.preventDefault(); setFocus((f) => Math.max(0, f - 1)); }
-    if (e.key === "Enter" && focus >= 0 && onRowClick) onRowClick(slice[focus]);
+    if (e.key === "Enter" && focus >= 0) openRow(slice[focus]);
   };
 
   return (
@@ -141,7 +145,7 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
               {views.length === 0 && <DropdownMenuItem disabled>Aucune vue</DropdownMenuItem>}
               {views.map((v) => <DropdownMenuItem key={v.name} onClick={() => { const p = Object.fromEntries(new URLSearchParams(v.qs)); u.set(p); toast.success(`Vue « ${v.name} » appliquée`); }}>{v.name}</DropdownMenuItem>)}
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => { const name = window.prompt("Nom de la vue", "Ma vue"); if (!name) return; const qs = new URLSearchParams(Object.entries(u.raw).filter(([k]) => k.startsWith(`${id}_`)).map(([k, v]) => [k.slice(id.length + 1), String(v)])).toString(); setStore((s) => ({ savedViews: { ...s.savedViews, [id]: [...(s.savedViews[id] ?? []), { name, qs }] } })); toast.success("Vue enregistrée"); }}>Enregistrer la vue actuelle</DropdownMenuItem>
+              <DropdownMenuItem onClick={async () => { const name = await ask("Nom de la vue", "Ma vue"); if (!name) return; const qs = new URLSearchParams(Object.entries(u.raw).filter(([k]) => k.startsWith(`${id}_`)).map(([k, v]) => [k.slice(id.length + 1), String(v)])).toString(); setStore((s) => ({ savedViews: { ...s.savedViews, [id]: [...(s.savedViews[id] ?? []), { name, qs }] } })); toast.success("Vue enregistrée"); }}>Enregistrer la vue actuelle</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu>
@@ -188,7 +192,7 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
                   </th>
                 );
               })}
-              {actions && <th className="px-3 py-2.5" />}
+              <th className="px-3 py-2.5" />
             </tr>
           </thead>
           <tbody>
@@ -196,14 +200,14 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
             {!loading && slice.map((r, i) => {
               const k = rowKey(r);
               return (
-                <tr key={k} onClick={() => onRowClick?.(r)} className={cn("group border-b transition-colors even:bg-muted/40 hover:bg-accent/60", onRowClick && "cursor-pointer", focus === i && "outline-2 -outline-offset-2 outline-ring")}>
+                <tr key={k} onClick={() => openRow(r)} style={{ animationDelay: `${Math.min(i, 12) * 22}ms` }} className={cn("group row-in cursor-pointer border-b transition-colors even:bg-muted/40 hover:bg-accent/70 hover:shadow-[inset_3px_0_0_var(--gold)]", focus === i && "outline-2 -outline-offset-2 outline-ring")}>
                   {bulk && <td className="px-3" onClick={(e) => e.stopPropagation()}><Checkbox checked={sel.includes(k)} onCheckedChange={(c) => setSel(c ? [...sel, k] : sel.filter((x) => x !== k))} /></td>}
                   {visibleCols.map((c) => (
                     <td key={c.key} className={cn("px-3", dense ? "py-1.5" : "py-2.5", c.align === "right" && "text-right tabular-nums", c.className)}>
                       {c.render ? c.render(r) : <Hl text={String(val(c, r))} q={q} />}
                     </td>
                   ))}
-                  {actions && <td className="whitespace-nowrap px-3 text-right" onClick={(e) => e.stopPropagation()}>{actions(r)}</td>}
+                  <td className="whitespace-nowrap px-3 text-right" onClick={(e) => e.stopPropagation()}><span className="inline-flex items-center gap-1">{actions?.(r)}<Button size="icon" variant="ghost" className="h-7 w-7 opacity-60 transition group-hover:opacity-100" aria-label="Voir le détail" onClick={() => openRow(r)}><Eye className="h-4 w-4" /></Button></span></td>
                 </tr>
               );
             })}
@@ -224,6 +228,17 @@ export function DataTable<T extends object>({ id, rows, columns, rowKey = (r) =>
           <Button variant="outline" size="icon" className="h-8 w-8" disabled={cur >= pages} onClick={() => u.set({ page: pages })} aria-label="Dernière page"><ChevronsRight className="h-4 w-4" /></Button>
         </div>
       </div>
+      <Sheet open={!!detail} onOpenChange={(o) => !o && setDetail(null)}>
+        <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
+          {detail && <>
+            <SheetHeader><SheetTitle>{String(val(columns[0], detail))}</SheetTitle><p className="text-xs text-muted-foreground">{title ?? "Détail"}</p></SheetHeader>
+            <dl className="mt-5 divide-y rounded-xl border">
+              {columns.map((c) => <div key={c.key} className="grid grid-cols-[40%_60%] gap-2 px-4 py-2.5 text-sm"><dt className="text-muted-foreground">{c.label}</dt><dd className="font-medium">{c.render ? c.render(detail) : String(val(c, detail) || "—")}</dd></div>)}
+            </dl>
+            {actions && <div className="mt-5 flex flex-wrap gap-2 rounded-xl bg-muted p-3"><span className="w-full text-xs font-semibold uppercase text-muted-foreground">Actions</span>{actions(detail)}</div>}
+          </>}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

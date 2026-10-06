@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ function Page() {
         <select className="h-9 rounded-md border bg-background px-2 text-sm" value={ag} onChange={(e) => setAg(e.target.value)} aria-label="Agence">{AG_OP.map((a) => <option key={a} value={a}>{s.agences.find((g) => g.id === a)!.nom}</option>)}</select>
         <Button variant="outline" disabled={locked} onClick={() => { spread("linéaire"); toast.success("Répartition linéaire appliquée"); }}>Linéaire</Button>
         <Button variant="outline" disabled={locked} onClick={() => { spread("saisonnier"); toast.success("Répartition saisonnière appliquée"); }}>Saisonnier</Button>
-        <Button variant="outline" disabled={locked} onClick={() => { const p = Number(window.prompt("Augmentation en %", "5")); if (p) { setO((x) => ACTIVITES.forEach((a) => (x[a] = x[a].map((v) => Math.round(v * (1 + p / 100)))))); toast.success(`+${p} % appliqué`); } }}>+x %</Button>
+        <Button variant="outline" disabled={locked} onClick={async () => { const p = Number(await ask("Augmentation en %", "5")); if (p) { setO((x) => ACTIVITES.forEach((a) => (x[a] = x[a].map((v) => Math.round(v * (1 + p / 100)))))); toast.success(`+${p} % appliqué`); } }}>+x %</Button>
         <Button variant="outline" disabled={locked} onClick={() => toast.success("Objectifs N-1 copiés")}>Copier N-1</Button>
         <Button disabled={statut === "Validé"} onClick={() => { setStatut("Validé"); toast.success("Validé par la Direction"); }}>Valider (Direction)</Button>
         <Button variant="secondary" onClick={() => { setLocked(!locked); toast(locked ? "Déverrouillé" : "Verrouillé"); }}>{locked ? "Déverrouiller" : "Verrouiller"}</Button></>} />

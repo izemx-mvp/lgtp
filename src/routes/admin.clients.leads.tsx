@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { toast } from "sonner";
@@ -36,7 +37,7 @@ function Page() {
       <PageHeader title="Leads" crumbs={[{ label: "Clients" }, { label: "Leads" }]} actions={<>
         <Button variant="outline" onClick={() => setKanban(!kanban)}>{kanban ? "Vue liste" : "Vue Kanban"}</Button>
         <Button variant="outline" className="gap-2" onClick={simulate}><MessageCircle className="h-4 w-4" />Simuler un message entrant</Button>
-        <Button onClick={() => { const n = window.prompt("Nom du prospect"); if (n) { s.set((x) => ({ leads: [{ ...x.leads[0], id: `ld${Date.now()}`, nom: n, statut: "Nouveau", source: "Téléphone", messages: [], date: new Date().toISOString() }, ...x.leads] })); toast.success("Lead créé"); } }}>Nouveau lead</Button>
+        <Button onClick={async () => { const n = await ask("Nom du prospect"); if (n) { s.set((x) => ({ leads: [{ ...x.leads[0], id: `ld${Date.now()}`, nom: n, statut: "Nouveau", source: "Téléphone", messages: [], date: new Date().toISOString() }, ...x.leads] })); toast.success("Lead créé"); } }}>Nouveau lead</Button>
         <AgentPanel agent="qualif" /></>} />
       {kanban ? <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-7">{ST.map((st) => <Card key={st} title={`${st} (${s.leads.filter((x) => x.statut === st).length})`}>{s.leads.filter((x) => x.statut === st).map((x) => <button key={x.id} onClick={() => setOpen(x.id)} className="mb-2 w-full rounded-lg border bg-background p-2 text-left text-xs hover:border-primary"><b>{x.nom}</b><p>{x.type} · {x.ville}</p><p className="text-muted-foreground">{x.source} · score {x.score}</p></button>)}</Card>)}</div> :
         <DataTable id="ld" rows={s.leads} onRowClick={(r) => setOpen(r.id)} columns={[{ key: "nom", label: "Prospect" }, { key: "source", label: "Source", filter: true }, { key: "type", label: "Qualification", filter: true }, { key: "ville", label: "Ville", filter: true }, { key: "ouvrage", label: "Ouvrage" }, { key: "urgence", label: "Urgence", filter: true }, { key: "budget", label: "Budget", align: "right", render: (r) => money(r.budget, 0) }, { key: "score", label: "Score", align: "right" }, { key: "date", label: "Date", render: (r) => fdate(r.date) }, { key: "statut", label: "Statut", filter: true, render: (r) => <Status s={r.statut} /> }]} />}

@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
+import { previewPdf } from "@/lib/dialogs";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -60,7 +61,7 @@ function Opps() {
                 {cur.qualifs.map((q) => <div key={q} className="flex justify-between"><span>{q}</span><span className="text-success">✔</span></div>)}
               </TabsContent>
               <TabsContent value="docs" className="space-y-2">
-                {["Règlement de consultation (RC)", "Cahier des prescriptions spéciales (CPS)", "Bordereau des prix (BPDE)", "Avis d'appel d'offres"].map((d) => <div key={d} className="flex items-center justify-between rounded border p-2 text-sm"><span>📄 {d}.pdf</span><Button size="sm" variant="ghost" onClick={() => toast(`Aperçu : ${d} — art. 9 p. 6 : caution provisoire ${money(cur.caution, 0)}`)}>Aperçu</Button></div>)}
+                {["Règlement de consultation (RC)", "Cahier des prescriptions spéciales (CPS)", "Bordereau des prix (BPDE)", "Avis d'appel d'offres"].map((d) => <div key={d} className="flex items-center justify-between rounded border p-2 text-sm"><span>📄 {d}.pdf</span><Button size="sm" variant="ghost" onClick={() => previewPdf(`${d} — ${cur.ref}`, [{ paragraphs: [`Maître d'ouvrage : ${cur.mo}`, `Objet : ${cur.objet}`, `Procédure : ${cur.procedure} · Date limite : ${fdate(cur.deadline)}`, `Art. 9 — Cautionnement provisoire : ${money(cur.caution)}`, "Art. 10 — Validité des offres : 75 jours", `Art. 12 — Visite des lieux : ${cur.visite ? "obligatoire" : "facultative"}`, `Qualifications exigées : ${cur.qualifs.join(", ")}`] }])}>Aperçu</Button></div>)}
               </TabsContent>
               <TabsContent value="analyse" className="space-y-2 text-sm">
                 <p>Score de pertinence : <b>{cur.score}/100</b></p>

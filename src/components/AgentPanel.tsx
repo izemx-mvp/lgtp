@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { Check, Loader2, Play, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -66,7 +67,7 @@ export function AgentPanel({ agent, extra, label = "Agent IA" }: { agent: AgentI
                 {q.statut === "En attente" && (
                   <div className="mt-2 flex gap-1">
                     <Button size="sm" className="h-7 gap-1" onClick={() => { approve(q.id, true); toast.success("Approuvé et exécuté"); }}><Check className="h-3.5 w-3.5" />Approuver</Button>
-                    <Button size="sm" variant="outline" className="h-7" onClick={() => { const t = window.prompt("Modifier la proposition", q.objet); if (t) { set((s) => ({ queue: s.queue.map((x) => (x.id === q.id ? { ...x, objet: t } : x)) })); toast.success("Proposition modifiée"); } }}>Modifier</Button>
+                    <Button size="sm" variant="outline" className="h-7" onClick={async () => { const t = await ask("Modifier la proposition", q.objet); if (t) { set((s) => ({ queue: s.queue.map((x) => (x.id === q.id ? { ...x, objet: t } : x)) })); toast.success("Proposition modifiée"); } }}>Modifier</Button>
                     <Button size="sm" variant="ghost" className="h-7 gap-1" onClick={() => { approve(q.id, false); toast("Proposition rejetée"); }}><X className="h-3.5 w-3.5" />Rejeter</Button>
                   </div>
                 )}

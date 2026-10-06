@@ -167,3 +167,22 @@
 @utility animate-tri { animation: tri-in 0.9s cubic-bezier(.2,.8,.2,1) infinite alternate; }
 
 .reduce-motion *, .reduce-motion *::before, .reduce-motion *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+
+@keyframes row-in { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+@utility row-in { animation: row-in .35s ease-out both; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@utility fade-up { animation: fade-up .5s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes shimmer { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+@utility shine {
+  background-image: linear-gradient(110deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%);
+  background-size: 200% 100%; animation: shimmer 3.5s linear infinite;
+}
+@utility surface-hover {
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, border-color .25s;
+  &:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--primary) 35%, var(--border)); box-shadow: var(--shadow-card), 0 14px 34px -18px color-mix(in oklab, var(--primary) 55%, transparent); }
+}
+@utility bg-grid {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+@utility text-gradient { background: var(--gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }

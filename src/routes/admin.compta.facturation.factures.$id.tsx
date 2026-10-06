@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ask, confirmAsk } from "@/lib/dialogs";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +30,7 @@ function Page() {
         <Button variant="outline" disabled={f.statut !== "Brouillon"} onClick={() => up({ statut: "Validée" }, "Facture validée")}>Valider</Button>
         <Button variant="outline" onClick={() => up({ statut: f.statut === "Brouillon" || f.statut === "Validée" ? "Envoyée" : f.statut }, `Envoyée à ${cl.nom} (e-mail/WhatsApp)`)}>Envoyer</Button>
         <Button variant="outline" onClick={() => { const n = s.factures.length + 1; const nid = `fa-d${n}`; s.set((x) => ({ factures: [{ ...f, id: nid, num: `FA-2026-${String(n).padStart(4, "0")}`, statut: "Brouillon", paye: 0, date: new Date().toISOString() }, ...x.factures] })); toast.success("Facture dupliquée"); nav({ to: "/admin/compta/facturation/factures/$id", params: { id: nid } }); }}>Dupliquer</Button>
-        <Button variant="outline" onClick={() => { const m = Number(window.prompt("Montant de l'avoir (DH TTC)", String(Math.round(factTTC(f) * 0.1)))); if (m) { s.set((x) => ({ avoirs: [{ id: `av${Date.now()}`, num: `AV-2026-${String(x.avoirs.length + 1).padStart(3, "0")}`, factureId: id, montant: m, motif: "Correction", date: new Date().toISOString() }, ...x.avoirs] })); s.payFacture(id, m, "Avoir"); toast.success("Avoir créé"); } }}>Créer un avoir</Button>
+        <Button variant="outline" onClick={async () => { const m = Number(await ask("Montant de l'avoir (DH TTC)", String(Math.round(factTTC(f) * 0.1)))); if (m) { s.set((x) => ({ avoirs: [{ id: `av${Date.now()}`, num: `AV-2026-${String(x.avoirs.length + 1).padStart(3, "0")}`, factureId: id, montant: m, motif: "Correction", date: new Date().toISOString() }, ...x.avoirs] })); s.payFacture(id, m, "Avoir"); toast.success("Avoir créé"); } }}>Créer un avoir</Button>
         <Button variant="outline" onClick={() => toast.success(`Relance envoyée à ${cl.nom}`)}>Relancer</Button>
         <Button disabled={reste <= 1} onClick={() => { s.payFacture(id, reste); toast.success("Facture marquée payée — créances et trésorerie mises à jour"); }}>Marquer payée</Button></>} />
       <div className="grid gap-4 lg:grid-cols-3">
